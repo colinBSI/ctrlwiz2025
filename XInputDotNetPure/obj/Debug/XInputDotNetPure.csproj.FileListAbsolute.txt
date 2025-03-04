@@ -1,28 +1,6 @@
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csprojAssemblyReference.cache
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS&RVT XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csprojAssemblyReference.cache
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS&RVT XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
-E:\OneDrive\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csprojAssemblyReference.cache
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
-C:\OneDrive\WORK FOLDER\01 IN PROGRESS\NVS_RVT_XBoxCtr\01_WORKING\NVS_RVT_XBoxCtr\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.AssemblyReference.cache
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
+C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="Naviswork" ProductType="Application" AppVersion="2.0.1" Name="CtrlWizNW" 
+Description="Control and Navigate your BIM model with an Xbox Controller."  SupportedLocales="Enu" 
+OnlineDocumentation="https://help.buildfore.com/ctrlwiz/ctrlwiz-for-navisworks/how-to-use-ctrlwiz-navisworks" 
+ProductCode="AE75327E-AB03-4C93-BE10-19DA596C6969" Icon="./Contents/Xbox.ico">
+  <CompanyDetails Name="VIATechnik, LLC" Url="https://www.viatechnik.com/" Email="support@viatechnik.com" />
+  <Components Description="2017 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw14" SeriesMax="Nw14" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw14/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+  <Components Description="2018 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw15" SeriesMax="Nw15" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw15/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+  <Components Description="2019 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw16" SeriesMax="Nw16" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw16/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+  <Components Description="2020 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw17" SeriesMax="Nw17" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw17/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+  <Components Description="2021 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw18" SeriesMax="Nw18" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw18/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+  <Components Description="2022 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw19" SeriesMax="Nw19" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw19/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
+</ApplicationPackage>
