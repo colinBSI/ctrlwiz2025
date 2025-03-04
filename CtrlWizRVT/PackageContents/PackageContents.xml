@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="Revit" ProductType="Application" AppVersion="1.0.2"
+                    SupportedLocales="Enu" OnlineDocumentation="https://help.buildfore.com/ctrlwiz/ctrlwiz-for-revit/ctrlwiz-xbox-controller-for-revit"
+                    ProductCode="A6C56B35-79A3-414B-BE31-80690F191DCC">
+  <CompanyDetails Name="VIATechnik, LLC" Url="https://www.viatechnik.com/" Email="support@viatechnik.com" />
+  <Components Description="Contents 2018">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2018" SeriesMax="R2018" />
+    <ComponentEntry AppName="Atkore Toolbar 2018" ModuleName="./Contents/RVT18/CtrlWiz.RVT.addin"></ComponentEntry>
+  </Components>
+  <Components Description="Contents 2019">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2019" SeriesMax="R2019" />
+    <ComponentEntry AppName="Atkore Toolbar 2019" ModuleName="./Contents/RVT19/CtrlWiz.RVT.addin"></ComponentEntry>
+  </Components>
+  <Components Description="Contents 2020">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2020" SeriesMax="R2020" />
+    <ComponentEntry AppName="Atkore Toolbar 2020" ModuleName="./Contents/RVT20/CtrlWiz.RVT.addin"></ComponentEntry>
+  </Components>
+  <Components Description="Contents 2021">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2021" SeriesMax="R2021" />
+    <ComponentEntry AppName="Atkore Toolbar 2021" ModuleName="./Contents/RVT21/CtrlWiz.RVT.addin"></ComponentEntry>
+  </Components>
+  <Components Description="Contents 2022">
+    <RuntimeRequirements OS="Win64" Platform="Revit" SeriesMin="R2022" SeriesMax="R2022" />
+    <ComponentEntry AppName="Atkore Toolbar 2022" ModuleName="./Contents/RVT22/CtrlWiz.RVT.addin"></ComponentEntry>
+  </Components>
+</ApplicationPackage>

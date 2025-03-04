@@ -1,0 +1,17 @@
+# Build and Release Folders
+*/obj
+*/bin
+*/Release
+
+
+# Other files and folders
+.vs/
+Backup/
+packages/
+CtrlWiz.Release.Assemblies/
+
+# Executables
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.

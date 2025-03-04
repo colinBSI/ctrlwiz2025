@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CtrlWiz.NW.UI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NV_LTrigger" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">ElevationDown</Value>
+    </Setting>
+    <Setting Name="NV_LStick" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">MoveSprint</Value>
+    </Setting>
+    <Setting Name="NV_RTrigger" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">ElevationUp</Value>
+    </Setting>
+    <Setting Name="NV_RBumber" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">ShortestDistance</Value>
+    </Setting>
+    <Setting Name="NV_YButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">UnhideAll</Value>
+    </Setting>
+    <Setting Name="NV_BButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">DeselectAll</Value>
+    </Setting>
+    <Setting Name="NV_AButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">SelectDeselect</Value>
+    </Setting>
+    <Setting Name="NV_XButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">HideUnhide</Value>
+    </Setting>
+    <Setting Name="NV_RStick" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">Look</Value>
+    </Setting>
+    <Setting Name="NV_StartButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
+      <Value Profile="(Default)">NextViewpoint</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

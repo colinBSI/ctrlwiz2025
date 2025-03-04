@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>CtrlWiz</Name>
+    <Assembly>CtrlWizRVT.dll</Assembly>
+    <AddInId>E53E7B24-1D88-498E-8DE1-A7CE208A4908</AddInId>
+    <FullClassName>CtrlWiz.RVT.ExAppCtrlWizRVT</FullClassName>
+    <Text>CtrlWiz - Xbox Controller for Revit</Text>
+    <VendorId>VIATechnik</VendorId>
+    <VendorDescription>VIATechnik, www.viatechnik.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
