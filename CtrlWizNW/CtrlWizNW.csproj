@@ -155,6 +155,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
+    <AdWindowsPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\AdWindows.dll</AdWindowsPath>
+    <AutodeskNavisworksApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Api.dll</AutodeskNavisworksApiPath>
+    <AutodeskNavisworksControlsPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Controls.dll</AutodeskNavisworksControlsPath>
+    <navisworksguiroamerPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\navisworks.gui.roamer.dll</navisworksguiroamerPath>
+    <AutodeskNavisworksClashPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Clash.dll</AutodeskNavisworksClashPath>
+    <AutodeskNavisworksComApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.ComApi.dll</AutodeskNavisworksComApiPath>
+    <AutodeskNavisworksInteropComApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Interop.ComApi.dll</AutodeskNavisworksInteropComApiPath>
+    <navisworksguiinterfacePath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\navisworks.gui.interface.dll</navisworksguiinterfacePath>
+    <OutputPath>..\CtrlWiz.Release.Assemblies\Navisworks\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;NW2025</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>

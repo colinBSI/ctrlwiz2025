@@ -28,4 +28,8 @@ ProductCode="AE75327E-AB03-4C93-BE10-19DA596C6969" Icon="./Contents/Xbox.ico">
     <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw19" SeriesMax="Nw19" />
     <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw19/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
   </Components>
+  <Components Description="2025 parts">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw22" SeriesMax="Nw22" />
+    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw22/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+  </Components>
 </ApplicationPackage>
