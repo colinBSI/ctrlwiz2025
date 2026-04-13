@@ -6,7 +6,24 @@
       "Bash(grep -E '\\(sk-[a-zA-Z0-9]{20,}|sk_live_[a-zA-Z0-9]+|sk_test_[a-zA-Z0-9]+|ghp_[a-zA-Z0-9]{36}|gho_[a-zA-Z0-9]{36}|glpat-[a-zA-Z0-9_-]+|AKIA[A-Z0-9]{16}|xox[baprs]-[a-zA-Z0-9-]+|-----BEGIN.*PRIVATE KEY|eyJ[a-zA-Z0-9_-]+\\\\.eyJ[a-zA-Z0-9_-]+\\\\.\\)' C:/Users/cemch-wei/Documents/GitHub/ctrlwiz2025/.planning/codebase/*.md)",
       "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs commit 'docs: map existing codebase' --files .planning/codebase/ARCHITECTURE.md .planning/codebase/CONCERNS.md .planning/codebase/CONVENTIONS.md .planning/codebase/INTEGRATIONS.md .planning/codebase/STACK.md .planning/codebase/STRUCTURE.md .planning/codebase/TESTING.md)",
       "Bash(find:*)",
-      "Skill(gsd-new-project)"
+      "Skill(gsd-new-project)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/2022/Professional/MSBuild/Current/Bin/MSBuild.exe\" CtrlWiz.sln /p:Configuration=NW25 /p:Platform=x64 /t:CtrlWizNW /m)",
+      "Bash(cmd.exe:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(powershell:*)",
+      "Bash(cmd:*)",
+      "Bash(\"/c/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe\" -version)",
+      "Bash(\"/c/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe\" CtrlWizNW/CtrlWizNW.csproj /p:Configuration=NW25 /p:Platform=x64 /m /verbosity:minimal)",
+      "Bash(\"/c/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe\" CtrlWizNW/CtrlWizNW.csproj \"/p:Configuration=NW25\" \"/p:Platform=x64\" /m /verbosity:minimal)",
+      "Bash(/c/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe CtrlWizNW/CtrlWizNW.csproj /p:Configuration=NW25 /p:Platform=x64 /verbosity:minimal)",
+      "Bash(C:/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe CtrlWizNW/CtrlWizNW.csproj /p:Configuration=NW25 /p:Platform=x64 /verbosity:minimal)",
+      "Bash(MSYS_NO_PATHCONV=1 dotnet msbuild CtrlWizNW/CtrlWizNW.csproj /p:Configuration=NW25 /p:Platform=x64 /verbosity:minimal)",
+      "Bash(MSYS_NO_PATHCONV=1 dotnet msbuild \"C:/Users/cemch-wei/Documents/GitHub/ctrlwiz2025/CtrlWizNW/CtrlWizNW.csproj\" /p:Configuration=NW25 /p:Platform=x64 /p:FrameworkPathOverride=\"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\" /verbosity:minimal)",
+      "Bash(MSYS_NO_PATHCONV=1 dotnet msbuild CtrlWiz.sln /p:Configuration=NW25 /p:Platform=x64 /p:FrameworkPathOverride=\"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\" /t:CtrlWizNW /verbosity:minimal)",
+      "Bash(dotnet nuget:*)",
+      "Bash(MSYS_NO_PATHCONV=1 dotnet restore CtrlWiz.sln)",
+      "Bash(curl -o \"C:/Users/cemch-wei/Documents/GitHub/ctrlwiz2025/nuget.exe\" \"https://dist.nuget.org/win-x86-commandline/latest/nuget.exe\")",
+      "Bash(MSYS_NO_PATHCONV=1 ./nuget.exe restore CtrlWiz.sln)"
     ]
   }
 }
