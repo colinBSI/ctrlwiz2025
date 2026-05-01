@@ -1,170 +1,235 @@
-# CtrlWiz Repository Structure
+# Codebase Structure
+_Last updated: 2026-05-01_
 
-Root: ctrlwiz2025/
+## Summary
+
+CtrlWiz is a 12-project .NET Framework 4.8 Visual Studio solution containing two Autodesk plugin targets (Navisworks and Revit), shared UI and infrastructure libraries, and installer projects. Projects are grouped into plugin layers, shared libraries, and deployment tooling. All builds target x64 Windows; release output collects to `CtrlWiz.Release.Assemblies\`.
+
+---
+
+## Directory Layout
+
+```
+ctrlwiz2025/
+├── CtrlWiz.sln                             Solution file (VS 2019, format 12.00)
+├── LICENSE                                 GNU GPL v3.0
+├── README.md
 │
-├── CtrlWiz.sln                        Visual Studio 2019 solution (all projects)
-├── LICENSE                            GNU GPL v3.0
-├── README.md                          Project overview, screenshots, controller maps
-├── UpgradeLog.htm                     VS project-upgrade log (auto-generated)
+├── CtrlWizNW/                              Navisworks plugin (main)
+├── CtrlWizNW.UI/                           WPF/MVVM UI layer for NW plugin
+├── CtrlWizRVT/                             Revit plugin
 │
-├── CtrlWizNW/                         *** Navisworks plug-in ***
-│   ├── CtrlWizNW.csproj               Target: .NET Framework, AnyCPU
-│   ├── app.config
-│   ├── Singleton.cs                   Generic thread-safe lazy singleton base class
-│   ├── VIATechnik_CS_cert.pfx         Code-signing certificate
-│   ├── CtrlWiz.NW/                    Source namespace CtrlWiz.NW
-│   │   ├── CmdViewpoint.cs            Main CommandHandlerPlugin; controller loop,
-│   │   │                              ribbon commands (ID_Button_1-5), viewpoint math
-│   │   ├── CmdTool.cs                 ToolPlugin (CmdTargetEnable/Disable crosshair overlay)
-│   │   ├── CmdInput.cs                InputPlugin stub (commented out)
-│   │   └── NavisUtils.cs              Singleton math helpers: quaternion multiply,
-│   │                                  view-direction extraction, vector lerp, angle
-│   ├── CustomRibbon/
-│   │   ├── CustomRibbon.xaml          Navisworks ribbon layout definition
-│   │   ├── CustomRibbon.name          Ribbon name resource
-│   │   └── PackageContents.xml        NW AppStore manifest (Nw14-Nw19 / 2017-2022)
-│   ├── Images/                        Icon + image assets for ribbon buttons
-│   └── Properties/                    AssemblyInfo, app settings
+├── CtrlWizForms/                           Shared WinForms UI (MVP pattern)
+├── CtrlWizForms.CustomControls/            Shared WinForms custom controls
 │
-├── CtrlWizNW.UI/                      *** NW settings/help WPF window (MVVM) ***
-│   ├── CtrlWizNW.UI.csproj
-│   ├── Models/
-│   │   ├── Function.cs                Enum of all mappable functions (21 values)
-│   │   ├── ControllerButton.cs        Enum: A B X Y RBumber Start None Unset
-│   │   ├── ControllerButtonOption.cs  Option model for a button drop-down entry
-│   │   ├── ControllerTrigger.cs       Enum: LT RT None Unset
-│   │   ├── ControllerTriggerOption.cs Option model for a trigger drop-down entry
-│   │   ├── ControllerThumbStick.cs    Enum: L R None Unset
-│   │   ├── ControllerThumbStickOption.cs
-│   │   └── ControllerOption.cs        Abstract base for all option models
-│   ├── ViewModels/
-│   │   └── HelpViewModel.cs           INotifyPropertyChanged VM; manages per-element
-│   │                                  option lists, selection state, Settings persistence,
-│   │                                  drone-controls coupling, RestoreDefault command
-│   └── Views/
-│       ├── HelpView.xaml              WPF window: combo-boxes for each controller element
-│       └── HelpView.xaml.cs           Code-behind
+├── CtrlWizLicense/                         License management (Paddle SDK)
+├── CtrlWiz.Logging/                        Shared file-based logger
+├── XInputDotNetPure/                       Xbox gamepad P/Invoke wrapper
 │
-├── CtrlWizRVT/                        *** Revit plug-in ***
-│   ├── CtrlWizRVT.csproj              Target: .NET Framework, AnyCPU
-│   ├── app.config
-│   ├── VIATechnik_CS_cert.pfx
-│   ├── CtrlWiz.RVT/                   Source namespace CtrlWiz.RVT
-│   │   ├── ExAppCtrlWizRVT.cs         IExternalApplication: OnStartup ribbon builder,
-│   │   │                              license init, logger setup
-│   │   ├── CmdActivateController.cs   IExternalCommand: async controller poll loop,
-│   │   │                              camera/view3D mutation, vibration feedback
-│   │   ├── CmdSettings.cs             IExternalCommand: opens SpeedSettingPresenter dialog
-│   │   ├── CmdHelp.cs                 IExternalCommand: opens HelpFormRVT
-│   │   ├── CmdFeatureRequest.cs       IExternalCommand: opens feature-request URL
-│   │   └── CmdLicense.cs              IExternalCommand: opens license management window
-│   ├── Dialogs/
-│   │   ├── PerspectiveViewNotActiveDialogBox.cs   WinForms dialog shown when active view
-│   │   │                                          is not a 3-D perspective view
-│   │   ├── PerspectiveViewNotActiveDialogBox.Designer.cs
-│   │   └── PerspectiveViewNotActiveDialogBox.resx
-│   ├── States/
-│   │   └── SpeedSettings.cs           Static class holding LinearSpeed / AngularSpeed
-│   │                                  in-memory state (not persisted between sessions)
-│   ├── Utility/
-│   │   └── ExtensionMethods.cs        RVT-specific extension helpers
-│   ├── Resources/                     Embedded icons (ActivateController, Help, Settings,
-│   │                                  License, Idea) + string resources for ribbon labels
-│   ├── PackageContents/
-│   │   └── PackageContents.xml        Revit AppStore manifest (R2018-R2022)
-│   └── Manifest/                      Per-year .addin manifest files (2019-2022)
+├── CtrlWizNWSetup/                         NW MSI installer (.vdproj)
+├── CtrlWizRVTSetup/                        RVT MSI installer (.vdproj)
+├── SetupNwXboxWix/                         NW installer (WiX alternative)
+├── CtrlWizInstallCustomAction/             MSI custom action: install-time checks
+├── CtrlWizDirectoryPermissionCustomAction/ MSI custom action: directory ACLs
 │
-├── CtrlWizForms/                      *** Shared WinForms UI (MVP) ***
-│   ├── CtrlWizForms.csproj
-│   ├── Views/
-│   │   ├── IHelpForm.cs               Interface: ShowDialog
-│   │   ├── HelpFormNW.cs/.Designer/.resx    Help window (NW variant)
-│   │   ├── HelpFormRVT.cs/.Designer/.resx   Help window (RVT variant)
-│   │   ├── ISpeedSettingForm.cs       Interface: LinearTrackBarValueChanged,
-│   │   │                              AngularTrackBarValueChanged, ShowDialog
-│   │   ├── SpeedSettingForm.cs/.Designer/.resx   Speed-setting sliders dialog
-│   │   ├── SettingEventArgs.cs        EventArgs carrying int SettingValue
-│   │   └── DialogWithLink.resx        Resx for hyperlink-capable dialog
-│   ├── Presenters/
-│   │   ├── SpeedSettingPresenter.cs   Mediates SpeedSettingForm ↔ SpeedSettingModel;
-│   │   │                              exposes LinearSetting / AngularSetting after close
-│   │   ├── HelpPresenterNW.cs         Presenter for NW help form
-│   │   └── HelpPresenterRVT.cs        Presenter for RVT help form
-│   ├── Models/
-│   │   ├── ISpeedSettingModel.cs
-│   │   └── SpeedSettingModel.cs
-│   ├── MessageServices/
-│   │   ├── IMessageService.cs         Interface: ShowError / ShowInfo
-│   │   └── MessageService.cs          Implementation wrapping MessageBox.Show
-│   └── Images/                        Shared image assets
+├── FullPermissionTest/                     Dev test harness for ACL logic
+├── Views/                                  Loose root-level XAML (working copies)
 │
-├── CtrlWizForms.CustomControls/       *** Shared WinForms custom controls ***
-│   ├── CtrlWizForms.CustomControls.csproj
-│   ├── RoundedCornersButton.cs        Button with rounded-corner paint override
-│   └── Utility/
-│       └── ExtensionMethods.cs        Control-layer helpers
+├── CtrlWiz.Release.Assemblies/             Shared release output directory
+│   ├── Navisworks\NW17\ ... NW25\          Per-version NW release binaries
+│   └── Revit\RVT19\ ... RVT22\            Per-version RVT release binaries
 │
-├── CtrlWizLicense/                    *** License management (Paddle SDK) ***
-│   ├── CtrlWizLicense.csproj
-│   ├── InAppCheckout.cs               Core class: Paddle.Configure, Product.Refresh,
-│   │                                  ShowCheckoutWindow, VerifyActivation, offline
-│   │                                  binary cache in %TEMP%
-│   ├── CtrlWizPaddle.cs               IProductInfoWindow stub (unused/placeholder)
-│   ├── InAppCheckoutArgs.cs           Event args for checkout flow
-│   ├── CheckoutCompletedArgs.cs
-│   ├── ActivationChangedArgs.cs
-│   ├── VerifyActivationCompletedArgs.cs
-│   ├── InAppCheckoutStatus.cs         Enum: Default / Pending
-│   ├── Configs/
-│   │   └── ProductVersion.cs          Enum: NW / RVT
-│   └── license.rtf                    EULA text shown in installer
-│
-├── CtrlWiz.LicenseAgreement/          *** License agreement displayed during install ***
-│   └── (bin/obj artefacts only — no tracked source files)
-│
-├── CtrlWiz.Logging/                   *** Shared logger ***
-│   ├── CtrlWiz.Logging.csproj
-│   ├── Logger.cs                      Static class: SetUpLogger(LoggedApp),
-│   │                                  LogException(Exception) extension method,
-│   │                                  appends to %TEMP%/CtrlWizNW.log or CtrlWizRVT.log
-│   └── Utility/
-│       ├── ExtensionMethods.cs        GetExceptionInfo helper for stack-trace formatting
-│       └── LoggedApp.cs               Enum: NW / RVT
-│
-├── XInputDotNetPure/                  *** Pure-managed XInput wrapper (vendored) ***
-│   ├── XInputDotNetPure.csproj
-│   └── XInputDotNetPure/
-│       ├── GamePad.cs                 Static: GetState(PlayerIndex), SetVibration(...)
-│       ├── GamePadState.cs            Struct returned by GetState
-│       ├── GamePadButtons.cs          Per-button ButtonState fields
-│       ├── GamePadThumbSticks.cs      Left/Right StickState (X, Y floats)
-│       ├── GamePadTriggers.cs         Left/Right float values
-│       ├── GamePadDPad.cs             D-pad ButtonState fields
-│       ├── ButtonState.cs             Enum: Pressed / Released
-│       ├── GamePadDeadZone.cs         Enum: None / IndependentAxes / Circular
-│       ├── PlayerIndex.cs             Enum: One / Two / Three / Four
-│       ├── Imports.cs                 P/Invoke into xinput1_3.dll
-│       └── Utils.cs                   Dead-zone application math
-│
-├── CtrlWizNWSetup/                    *** NW installer (Visual Studio .vdproj) ***
-│   └── CtrlWizNWSetup.vdproj
-│
-├── CtrlWizRVTSetup/                   *** RVT installer (Visual Studio .vdproj) ***
-│   └── CtrlWizRVTSetup.vdproj
-│
-├── SetupNwXboxWix/                    *** NW installer (WiX MSI) ***
-│   ├── SetupNwXboxWix.wixproj
-│   └── Product.wxs                    WiX product definition
-│
-├── CtrlWizInstallCustomAction/        *** MSI custom action DLL ***
-│   └── InstallCustomAction.cs         Runs at install time (e.g. registry writes)
-│
-├── CtrlWizDirectoryPermissionCustomAction/   *** MSI custom action DLL ***
-│   └── DirectoryPermissionCustomAction.cs    Sets ACLs on install directory
-│
-├── FullPermissionTest/                *** Dev/test project for ACL testing ***
-│   └── (test harness for directory permission custom action)
-│
-└── Views/                             *** Loose XAML view files (root level) ***
-    ├── HelpView.xaml                  Duplicate / working copy of NW help view
-    └── HelpView.xaml.cs
+└── packages/                               NuGet package restore cache
+```
+
+---
+
+## Project-by-Project Breakdown
+
+### CtrlWizNW — Navisworks Plugin
+- **Purpose:** Main Navisworks plugin assembly. Registers the CtrlWiz ribbon tab, handles all Navisworks API calls, runs the gamepad polling loop, and mutates the Navisworks document viewpoint.
+- **Output type:** Class library (`CtrlWizNW.dll`)
+- **Namespace:** `CtrlWiz.NW`
+- **Target framework:** .NET 4.8, x64
+- **Key files:**
+  - `CtrlWizNW\CtrlWiz.NW\CmdViewpoint.cs` — plugin entry point; `CommandHandlerPlugin` subclass; defines all ribbon commands via attributes; owns the controller polling loop and viewpoint math
+  - `CtrlWizNW\CtrlWiz.NW\CmdTool.cs` — `CmdTargetEnable` / `CmdTargetDisable` (`ToolPlugin`), overlay crosshair rendering
+  - `CtrlWizNW\CtrlWiz.NW\NavisUtils.cs` — `Singleton<NavisUtils>` with quaternion multiply, view-direction extraction, vector lerp, angle calculation
+  - `CtrlWizNW\Singleton.cs` — generic thread-safe lazy singleton base class (used by `NavisUtils`)
+  - `CtrlWizNW\CustomRibbon\PackageContents.xml` — Autodesk Application Package manifest; declares the bundle, supported NW versions, and DLL module path
+  - `CtrlWizNW\CustomRibbon\CustomRibbon.xaml` — WPF XAML ribbon layout compiled as a `Page` resource
+- **Build configurations:** `NW17|x64` through `NW25|x64`; each sets `$(AutodeskNavisworksApiPath)` and a `NW20xx` compile constant
+- **Debug output:** `%ProgramData%\Autodesk\ApplicationPlugins\CtrlWiz.bundle\Contents\v18\`
+- **Release output:** `CtrlWiz.Release.Assemblies\Navisworks\$(Configuration)\`
+- **Project references:** `CtrlWiz.Logging`, `CtrlWizForms`, `CtrlWizLicense`, `CtrlWizNW.UI`, `XInputDotNetPure`
+
+---
+
+### CtrlWizNW.UI — WPF/MVVM UI Layer for NW
+- **Purpose:** WPF class library providing the controller-mapping settings window (Help/Map view) for the NW plugin. Contains all MVVM models, the `HelpViewModel`, and the `GetControllerElement` settings bridge consumed by `CmdViewpoint`.
+- **Output type:** Class library (`CtrlWizNW.UI.dll`)
+- **Namespace:** `CtrlWiz.NW.UI`
+- **Target framework:** .NET 4.8 (WPF project type GUID `{60dc8134-...}`)
+- **Key directories:**
+  - `CtrlWizNW.UI\Models\` — `Function` enum, `ControllerButton/Trigger/ThumbStick` enums, `ControllerOption` base class and `*Option` concrete subclasses
+  - `CtrlWizNW.UI\ViewModels\HelpViewModel.cs` — full MVVM ViewModel; persists button-to-function mappings to `Settings.Default`; implements drone-controls coupling logic
+  - `CtrlWizNW.UI\Views\HelpView.xaml` — WPF window with combo-boxes for each controller element
+  - `CtrlWizNW.UI\Properties\GetControllerElement.cs` — static bridge between `Settings.Default` string keys and typed controller element enums; raises `SettingsPropertyChanged` event
+  - `CtrlWizNW.UI\Properties\Settings.settings` — per-user roaming settings storing `NV_AButton`, `NV_BButton`, `NV_XButton`, `NV_YButton`, `NV_RBumber`, `NV_StartButton`, `NV_LTrigger`, `NV_RTrigger`, `NV_LStick`, `NV_RStick`
+- **NuGet dependency:** `MvvmLightLibs 5.4.1` (GalaSoft.MvvmLight + Extras + Platform, System.Windows.Interactivity)
+
+---
+
+### CtrlWizRVT — Revit Plugin
+- **Purpose:** Main Revit plugin assembly. Implements `IExternalApplication` for startup/ribbon setup, and separate `IExternalCommand` classes for each ribbon button. Runs an async gamepad loop that mutates `View3D` orientation directly via the Revit API.
+- **Output type:** Class library (`CtrlWizRVT.dll`)
+- **Namespace:** `CtrlWiz.RVT`
+- **Target framework:** .NET 4.8, AnyCPU
+- **Key files:**
+  - `CtrlWizRVT\CtrlWiz.RVT\ExAppCtrlWizRVT.cs` — `IExternalApplication` entry point; builds ribbon; initializes `InAppCheckout`; calls `Logger.SetUpLogger(LoggedApp.RVT)`
+  - `CtrlWizRVT\CtrlWiz.RVT\CmdActivateController.cs` — `IExternalCommand`; async `Update()` loop; reads `GamePad.GetState()`, calls `MoveCamera()` / `RotateCamera()` using `ViewOrientation3D`
+  - `CtrlWizRVT\CtrlWiz.RVT\CmdSettings.cs` — opens `SpeedSettingPresenter` dialog; writes result to `SpeedSettings` static state
+  - `CtrlWizRVT\States\SpeedSettings.cs` — static `LinearSpeed` / `AngularSpeed` in-memory settings (reset each Revit session)
+  - `CtrlWizRVT\Utility\ExtensionMethods.cs` — RVT-specific helpers (e.g., `ConvertToVector3()` for Revit `XYZ`, `RotateByAxis()`)
+  - `CtrlWizRVT\Dialogs\PerspectiveViewNotActiveDialogBox.cs` — WinForms dialog shown when controller input received but active view is not a 3D perspective view
+  - `CtrlWizRVT\Manifest\{year}\CtrlWiz.RVT.addin` — Revit add-in manifest (2019–2022); registers `ExAppCtrlWizRVT` as `Application` type
+- **Build configurations:** `RVT19|AnyCPU` through `RVT22|AnyCPU`; each sets `$(RevitAPIPath)` and a `RVTxx` compile constant
+- **Release output:** `CtrlWiz.Release.Assemblies\Revit\$(Configuration)\`
+- **Project references:** `CtrlWiz.Logging`, `CtrlWizForms`, `CtrlWizLicense`, `XInputDotNetPure`
+
+---
+
+### CtrlWizForms — Shared WinForms UI (MVP)
+- **Purpose:** WinForms class library shared by both NW and RVT plugins. Provides the Speed Settings dialog, Help/Controller-map dialogs (separate NW and RVT variants), and message service abstraction.
+- **Output type:** Class library
+- **Namespace:** `CtrlWiz.Forms`
+- **Key directories:**
+  - `CtrlWizForms\Views\` — `IHelpForm`, `ISpeedSettingForm` interfaces; `HelpFormNW`, `HelpFormRVT`, `SpeedSettingForm` concrete WinForms classes; `SettingEventArgs`
+  - `CtrlWizForms\Presenters\` — `SpeedSettingPresenter`, `HelpPresenterNW`, `HelpPresenterRVT`
+  - `CtrlWizForms\Models\` — `ISpeedSettingModel`, `SpeedSettingModel`
+  - `CtrlWizForms\MessageServices\` — `IMessageService`, `MessageService` (wraps `MessageBox.Show`)
+
+---
+
+### CtrlWizForms.CustomControls — Shared WinForms Controls
+- **Purpose:** Reusable WinForms control library.
+- **Key files:**
+  - `CtrlWizForms.CustomControls\RoundedCornersButton.cs` — `Button` subclass with rounded-corner paint override
+  - `CtrlWizForms.CustomControls\Utility\ExtensionMethods.cs` — control-layer helpers
+
+---
+
+### CtrlWizLicense — License Management
+- **Purpose:** Encapsulates Paddle SDK integration for in-app license checkout and activation verification. Used by both plugin hosts.
+- **Key files:**
+  - `CtrlWizLicense\InAppCheckout.cs` — main class; `Paddle.Configure()` initialization; `StartPaddle(out string message)` runs verification; `IsProductActivated` property; `ActivationChanged` event
+  - `CtrlWizLicense\Configs\ProductVersion.cs` — `enum ProductVersion { NW = 0, RVT = 1 }` selects the correct Paddle product ID
+  - `CtrlWizLicense\Properties\Resources.resx` — embeds `ApiKey`, `VendorId`, `ProductIdNW`, `ProductIdRVT`, `TempNW`, `TempRVT` (activation cache file names)
+- **NuGet dependency:** Paddle SDK (referenced via `packages\`)
+
+---
+
+### CtrlWiz.Logging — Shared Logger
+- **Purpose:** Static file-based exception logger used by both plugins.
+- **Key files:**
+  - `CtrlWiz.Logging\Logger.cs` — `SetUpLogger(LoggedApp)` sets path; `Exception.LogException()` extension method appends timestamped entries to `%TEMP%\CtrlWizNW.log` or `%TEMP%\..\CtrlWizRVT.log`
+  - `CtrlWiz.Logging\Utility\LoggedApp.cs` — `enum LoggedApp { NW, RVT }`
+  - `CtrlWiz.Logging\Utility\ExtensionMethods.cs` — `GetExceptionInfo()` for formatted stack traces
+
+---
+
+### XInputDotNetPure — Xbox Gamepad Wrapper
+- **Purpose:** Pure-managed C# P/Invoke wrapper over `xinput1_3.dll`. Vendored into the solution (not a NuGet package).
+- **Key files:**
+  - `XInputDotNetPure\XInputDotNetPure\GamePad.cs` — `GamePad.GetState(PlayerIndex)` and `SetVibration()`
+  - `XInputDotNetPure\XInputDotNetPure\Imports.cs` — `DllImport` declarations for `xinput1_3.dll`
+  - `XInputDotNetPure\XInputDotNetPure\GamePadState.cs` — state struct aggregating buttons, thumbsticks, triggers, dpad
+  - `XInputDotNetPure\XInputDotNetPure\Utils.cs` — dead-zone math
+
+---
+
+### CtrlWizNWSetup / CtrlWizRVTSetup — VS Installer Projects
+- **Purpose:** Visual Studio Deployment Project (`.vdproj`) MSI installers for NW and RVT respectively.
+- **Relation to plugin projects:** Reference the built output DLLs from `CtrlWiz.Release.Assemblies\`; depend on `CtrlWizInstallCustomAction` and `CtrlWizDirectoryPermissionCustomAction` for custom installer behaviors.
+- **Key files:**
+  - `CtrlWizNWSetup\CtrlWizNWSetup.vdproj`
+  - `CtrlWizRVTSetup\CtrlWizRVTSetup.vdproj`
+
+---
+
+### CtrlWizInstallCustomAction — MSI Custom Action
+- **Purpose:** Runs during MSI installation to prompt the user to confirm administrative privileges are in place (required for Paddle licensing to function correctly).
+- **Key file:** `CtrlWizInstallCustomAction\InstallCustomAction.cs` — `Installer` subclass; `OnBeforeInstall` shows a confirmation `MessageBox`; throws `InstallException` if cancelled
+
+---
+
+### CtrlWizDirectoryPermissionCustomAction — MSI Custom Action
+- **Purpose:** Runs during MSI installation to create and grant `FullControl` ACLs to `%ProgramData%\CtrlWizLicense`, `%ProgramData%\System`, and `%ProgramData%\Roamer` so the Paddle license cache is writable by non-admin users at runtime.
+- **Key file:** `CtrlWizDirectoryPermissionCustomAction\DirectoryPermissionCustomAction.cs` — `Installer` subclass; `OnBeforeInstall` calls `ProcessDirectory()` which creates missing directories and calls `GrantAccess()`
+
+---
+
+### FullPermissionTest — Developer Test Harness
+- **Purpose:** Console application used during development to test the ACL-granting logic that `CtrlWizDirectoryPermissionCustomAction` will run in production. Not included in any installer.
+- **Key file:** `FullPermissionTest\Program.cs`
+
+---
+
+## Key File Locations (Quick Reference)
+
+| What | Path |
+|------|------|
+| NW plugin entry point | `CtrlWizNW\CtrlWiz.NW\CmdViewpoint.cs` |
+| NW ribbon layout | `CtrlWizNW\CustomRibbon\CustomRibbon.xaml` |
+| NW bundle manifest | `CtrlWizNW\CustomRibbon\PackageContents.xml` |
+| RVT plugin entry point | `CtrlWizRVT\CtrlWiz.RVT\ExAppCtrlWizRVT.cs` |
+| RVT controller loop | `CtrlWizRVT\CtrlWiz.RVT\CmdActivateController.cs` |
+| RVT add-in manifests | `CtrlWizRVT\Manifest\{2019–2022}\CtrlWiz.RVT.addin` |
+| Controller-to-function mapping UI | `CtrlWizNW.UI\ViewModels\HelpViewModel.cs` |
+| Controller-to-function settings bridge | `CtrlWizNW.UI\Properties\GetControllerElement.cs` |
+| User settings keys | `CtrlWizNW.UI\Properties\Settings.settings` |
+| Speed settings (RVT in-memory) | `CtrlWizRVT\States\SpeedSettings.cs` |
+| Speed settings dialog | `CtrlWizForms\Views\SpeedSettingForm.cs` |
+| Licensing | `CtrlWizLicense\InAppCheckout.cs` |
+| Logger | `CtrlWiz.Logging\Logger.cs` |
+| Gamepad state | `XInputDotNetPure\XInputDotNetPure\GamePad.cs` |
+| Singleton base | `CtrlWizNW\Singleton.cs` |
+
+---
+
+## Where to Add New Code
+
+**New Navisworks command (ribbon button):**
+- Add `[Command("ID_Button_N", ...)]` attribute to `CmdViewpoint` in `CtrlWizNW\CtrlWiz.NW\CmdViewpoint.cs`
+- Handle it in `CmdViewpoint.ExecuteCommand(string name)`
+- Add button definition to `CtrlWizNW\CustomRibbon\CustomRibbon.xaml`
+
+**New mappable function (NW controller input):**
+- Add value to `Function` enum in `CtrlWizNW.UI\Models\Function.cs`
+- Add `ControllerButtonOption` / `ControllerTriggerOption` / `ControllerThumbStickOption` entry in `HelpViewModel.CreateEmptyControllerElementOptions()`
+- Handle the new function in `CmdViewpoint`'s polling loop
+
+**New RVT command:**
+- Create a new `IExternalCommand` class in `CtrlWizRVT\CtrlWiz.RVT\`
+- Register the ribbon button in `ExAppCtrlWizRVT.OnStartup()`
+
+**New shared WinForms dialog:**
+- Define an interface in `CtrlWizForms\Views\`
+- Implement the WinForms form in `CtrlWizForms\Views\`
+- Create a presenter in `CtrlWizForms\Presenters\`
+
+**New reusable WinForms control:**
+- Add to `CtrlWizForms.CustomControls\`
+
+---
+
+## Build Output Conventions
+
+- **Debug (NW):** outputs directly to `%ProgramData%\Autodesk\ApplicationPlugins\CtrlWiz.bundle\Contents\v18\` for live testing in NW 2022
+- **Release (NW):** `CtrlWiz.Release.Assemblies\Navisworks\NW17\` ... `NW25\`
+- **Release (RVT):** `CtrlWiz.Release.Assemblies\Revit\RVT19\` ... `RVT22\`
+- **Installers:** consume the release output directories; built separately via the Setup projects
+
+---
+
+*Structure analysis: 2026-05-01*

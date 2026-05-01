@@ -1,273 +1,279 @@
-# CtrlWiz Coding Conventions
+# Coding Conventions
+_Last updated: 2026-05-01_
 
-## Language and Runtime
+## Summary
 
-- All source files are C# targeting .NET Framework 4.8.
-- XAML is used exclusively for WPF UI markup (CtrlWizNW.UI, Views/).
-- The solution targets Windows only. No cross-platform abstractions are used or expected.
-- All projects compile to class libraries (OutputType = Library). There are no standalone executables
-  except FullPermissionTest, which is a development harness.
-
----
-
-## Namespaces
-
-Namespaces mirror the project/assembly name, not the on-disk folder hierarchy:
-
-  Project            Root namespace
-  -------            --------------
-  CtrlWizNW          CtrlWiz.NW
-  CtrlWizNW.UI       CtrlWiz.NW.UI.{Models|ViewModels|Views|Properties}
-  CtrlWizRVT         CtrlWiz.RVT
-  CtrlWizForms       CtrlWiz.Forms.{Views|Presenters|Models|MessageServices}
-  CtrlWizForms.CustomControls   CtrlWizForms.CustomControls (note: no dot before CustomControls)
-  CtrlWizLicense     CtrlWiz.License
-  CtrlWiz.Logging    CtrlWiz.Logging (and CtrlWiz.Logging.Utility for helpers)
-  XInputDotNetPure   XInputDotNetPure
-
-Do not create sub-namespaces beyond those already established. New files in an existing
-project go into the project's root namespace unless they belong to an established sub-folder
-(Utility, Models, Views, etc.).
+CtrlWiz is a C# .NET Framework 4.8 solution following standard Microsoft/Visual Studio conventions. The codebase applies MVP (Model-View-Presenter) in the WinForms layer (`CtrlWizForms/`) and MVVM in the WPF layer (`CtrlWizNW.UI/`). Naming follows PascalCase for types and public members, camelCase with underscore prefix for private fields. There is no automated formatter configuration (.editorconfig, Resharper, StyleCop) present in the repository.
 
 ---
 
 ## Naming Conventions
 
-### Types
-
-- Classes, interfaces, enums, and structs use PascalCase.
-- Interface names are prefixed with I: ISpeedSettingForm, IMessageService, ISpeedSettingModel,
-  IHelpForm.
-- Enums use PascalCase for both the type name and every member value. Sentinel members that
-  indicate "nothing assigned yet" are named Unset (not null, Unknown, or Default):
-    ControllerButton.Unset = -1
-    ControllerTrigger.Unset = -1
-    ControllerThumbStick.Unset = -1
-    Function.Unset = -1
-  Sentinel members that indicate "explicitly mapped to nothing" are named None:
-    ControllerButton.None = 6
-    Function.None = 21
+### Classes and Types
+- **PascalCase** for all class, interface, enum, and struct names.
+- Interface names prefixed with `I`: `ISpeedSettingForm`, `ISpeedSettingModel`, `IMessageService`, `IHelpForm`.
+- EventArgs subclasses suffixed `Args` or `EventArgs`: `SettingEventArgs`, `ActivationChangedArgs`, `CheckoutCompletedArgs`.
+- Command classes prefixed `Cmd`: `CmdViewpoint`, `CmdActivateController`, `CmdHelp`, `CmdSettings`.
+- External application entry point prefixed `ExApp`: `ExAppCtrlWizRVT`.
+- Presenter classes suffixed `Presenter`: `SpeedSettingPresenter`, `HelpPresenterNW`, `HelpPresenterRVT`.
+- ViewModel classes suffixed `ViewModel`: `HelpViewModel`.
+- Model option classes suffixed `Option`: `ControllerButtonOption`, `ControllerTriggerOption`, `ControllerThumbStickOption`.
 
 ### Methods
+- **PascalCase** for all public and private methods.
+- Private event handler methods follow the pattern `[SenderName]_[EventName]`: `LinearTrackBar_ValueChanged`, `UIApplication_ViewActivating`, `GetControllerElement_SettingsPropertyChanged`.
+- `async` methods do NOT use an `Async` suffix: `InitializeController`, `Update`, `VibrateOnStart`.
 
-- Public, protected, and internal methods use PascalCase.
-- Private methods use PascalCase (same rule applies; there is no camelCase exception for
-  private methods in this codebase).
-- Async methods do not carry the Async suffix (InitializeController, Update, VibrateOnStart).
-  New async methods should follow this existing pattern for consistency.
-- Event handler methods are named using the pattern:
-    <SourceObject>_<EventName>
-  Examples: UIApplication_ViewActivating, InAppCheckout_ActivationChanged,
-  SpeedSettingForm_SpeedTrackBarValueChanged, Default_PropertyChanged.
-
-### Fields and Parameters
-
-- Private instance fields use _camelCase with a leading underscore:
-    private InputSimulator _inputSimulator;
-    private RelayCommand _restoreDefaultCommand;
-    private bool _isHovering;
-- Private static fields that are effectively constants or singletons use _camelCase:
-    private static long lastTime
-    private static int fps
-  (Note: some older static fields omit the underscore; new code should use the underscore.)
-- Local variables and method parameters use camelCase without a leading underscore.
-- Boolean state flags use the prefix is or has:
-    isRun, isMoving, isRotating, isProductActivated, firsttime (legacy; prefer isFirstTime
-    for new code).
+### Fields and Variables
+- Private instance fields: `_camelCaseWithLeadingUnderscore`
+  - Examples: `_inputSimulator`, `_selectDeselectButton`, `_controllerButtonOptions`
+- Private static fields: same `_camelCase` prefix: `_logFilePath`, `_restoreDefaultCommand`
+- Local variables and method parameters: plain `camelCase`: `localAButtonFunction`, `commandData`
+- Inconsistency: some older static flags drop the underscore: `isProductActivated`, `isRun` in `CtrlWizRVT/CtrlWiz.RVT/CmdActivateController.cs`
 
 ### Properties
+- **PascalCase** for all properties.
+- Auto-properties with expression-body getters preferred for simple factory instances:
+  ```csharp
+  public static MessageService MessageService => new MessageService();
+  ```
+- Read-only properties: `{ get; private set; }`
 
-- Public and internal properties use PascalCase with standard get/set or expression-bodied
-  accessors.
-- Read-only auto-properties that delegate to a new instance each call use expression-body
-  syntax:
-    public static MessageService MessageService => new MessageService();
-- Properties backed by a private field follow the _field / Property pairing pattern:
-    private bool _isHovering;
-    // exposed via OnPaint behavior, not a property
+### Enums
+- **PascalCase** for type and member names.
+- All enums include a sentinel `Unset = -1` and a `None` member (for "no selection assigned"):
+  ```csharp
+  // CtrlWizNW.UI/Models/ControllerButton.cs
+  public enum ControllerButton { X = 0, Y = 1, A = 2, B = 3, RBumber = 4, Start = 5, None = 6, Unset = -1 }
+  ```
+- The `[Serializable]` attribute is applied to enums persisted in user settings (`Function` enum in `CtrlWizNW.UI/Models/Function.cs`).
 
 ### Constants
+- `const` / `static readonly` fields at class level use camelCase when private:
+  ```csharp
+  private const float constantUnit = 3.28084f;          // camelCase (inconsistent)
+  private readonly static int LinearSpeedFactor = 10;   // PascalCase (inconsistent)
+  ```
+  New code should use PascalCase for all `const` and `static readonly` fields.
 
-- Literal constant fields use camelCase (existing code) or PascalCase where they carry
-  public/internal visibility:
-    private const float constantUnit = 3.28084f;
-    private readonly static int LinearSpeedFactor = 10;
-  New constants should prefer PascalCase for public/internal and SCREAMING_SNAKE only if
-  required by a host SDK (none currently required).
+---
+
+## Namespace Conventions
+
+Namespaces reflect project assembly names and internal folder structure:
+
+| Project folder | Namespace |
+|---|---|
+| `CtrlWizNW/CtrlWiz.NW/` | `CtrlWiz.NW` |
+| `CtrlWizNW.UI/ViewModels/` | `CtrlWiz.NW.UI.ViewModels` |
+| `CtrlWizNW.UI/Views/` | `CtrlWiz.NW.UI.Views` |
+| `CtrlWizNW.UI/Models/` | `CtrlWiz.NW.UI.Models` |
+| `CtrlWizNW.UI/Properties/` | `CtrlWiz.NW.UI.Properties` |
+| `CtrlWizForms/Views/` | `CtrlWiz.Forms.Views` |
+| `CtrlWizForms/Presenters/` | `CtrlWiz.Forms.Presenters` |
+| `CtrlWizForms/Models/` | `CtrlWiz.Forms.Models` |
+| `CtrlWizForms/MessageServices/` | `CtrlWiz.Forms.MessageServices` |
+| `CtrlWizForms.CustomControls/` | `CtrlWizForms.CustomControls` |
+| `CtrlWizRVT/CtrlWiz.RVT/` | `CtrlWiz.RVT` |
+| `CtrlWizRVT/Utility/` | `CtrlWiz.RVT.Utility` |
+| `CtrlWizRVT/States/` | `CtrlWiz.RVT.States` |
+| `CtrlWizRVT/Dialogs/` | `CtrlWiz.RVT.Dialogs` |
+| `CtrlWizLicense/` | `CtrlWiz.License` |
+| `CtrlWizLicense/Configs/` | `CtrlWiz.License.Configs` |
+| `CtrlWiz.Logging/` | `CtrlWiz.Logging` |
+| `CtrlWiz.Logging/Utility/` | `CtrlWiz.Logging.Utility` |
+
+Note: `CtrlWizForms.CustomControls` uses `CtrlWizForms.CustomControls` (not `CtrlWiz.Forms.CustomControls`), diverging from the `CtrlWiz.*` pattern.
+
+---
+
+## Import Organization
+
+No tooling enforces import order. The observed pattern in files like `CtrlWizNW/CtrlWiz.NW/CmdViewpoint.cs` is:
+
+1. Autodesk / third-party SDK namespaces
+2. Internal `CtrlWiz.*` namespaces
+3. `System.*` namespaces last
+
+This is **inverted** from standard .NET convention (System namespaces first). No path aliases or `using static` directives are used.
+
+---
+
+## Code Style
+
+### Braces
+- **Allman style** throughout: opening brace on its own line for all blocks (`if`, `else`, `for`, `while`, `try`, `catch`, `using`).
+- Exception: expression-body members (`=>`) for simple one-liners:
+  ```csharp
+  public Vector3 Point3DtoV3(Point3D p) => new Vector3((float)p.X, (float)p.Y, (float)p.Z);
+  internal static float ConvertIntoRadians(this int angle) => (float)(angle * Math.PI / 180);
+  ```
+
+### `this.` Qualification
+Used consistently in constructors and when subscribing to events to distinguish injected fields from local variables:
+```csharp
+// CtrlWizForms/Presenters/SpeedSettingPresenter.cs
+this.speedSettingForm = new SpeedSettingForm(linearSetting, angularSetting, linearSpeedFactor);
+this.speedSettingForm.LinearTrackBarValueChanged += SpeedSettingForm_SpeedTrackBarValueChanged;
+```
+Not used in static methods or for simple property access outside constructors.
+
+### `var` Usage
+Explicit types are strongly preferred. `var` is not used in any file reviewed.
 
 ---
 
 ## Architectural Patterns
 
-### Revit Commands (IExternalCommand)
+### MVP (WinForms layer)
+Location: `CtrlWizForms/`
 
-Every Revit command class:
-1. Applies three Autodesk attribute groups at the top in a named region labeled "Attributes":
-     [Autodesk.Revit.Attributes.Transaction(TransactionMode.Manual)]
-     [Autodesk.Revit.Attributes.Regeneration(RegenerationOption.Manual)]
-     [Autodesk.Revit.Attributes.Journaling(JournalingMode.NoCommandData)]
-2. Implements IExternalCommand with a single public Execute method.
-3. Calls ExAppCtrlWizRVT.IsLicenseActive() as the very first statement inside Execute.
-   If it returns false, return Result.Cancelled immediately.
-4. Wraps the entire body in a try/catch(Exception e) block. On catch, call
-   TaskDialog.Show("Error", e.Message) and return Result.Failed.
-5. Returns Result.Succeeded at the bottom of the happy path.
+- **View interfaces** in `CtrlWizForms/Views/`: `ISpeedSettingForm`, `IHelpForm`
+- **View implementations** in same folder: `SpeedSettingForm.cs`, `HelpFormNW.cs`, `HelpFormRVT.cs`
+- **Presenters** in `CtrlWizForms/Presenters/`: `SpeedSettingPresenter.cs`, `HelpPresenterNW.cs`, `HelpPresenterRVT.cs`
+- **Models** in `CtrlWizForms/Models/`: `ISpeedSettingModel` / `SpeedSettingModel` (currently empty stubs)
 
-### Navisworks Plugin (CommandHandlerPlugin)
+Presenters have two constructors: a public one that creates concrete implementations (production use), and a private one accepting interfaces (for future testability):
+```csharp
+// CtrlWizForms/Presenters/SpeedSettingPresenter.cs
+public SpeedSettingPresenter(int linearSetting, int angularSetting, int linearSpeedFactor) { ... }
+private SpeedSettingPresenter(ISpeedSettingForm form, ISpeedSettingModel model, IMessageService svc) { ... }
+```
 
-- The single CommandHandlerPlugin class (CmdViewpoint) is annotated with [Plugin(...)],
-  [Strings(...)], [RibbonLayout(...)], [RibbonTab(...)], and one [Command(...)] attribute
-  per ribbon button. All annotations are grouped in a region labeled "Create Ribbon".
-- The plugin class implements IDisposable.
-- Button IDs follow the pattern ID_Button_N (1-indexed integers).
+### MVVM (WPF layer)
+Location: `CtrlWizNW.UI/`
 
-### Model-View-Presenter (WinForms, CtrlWizForms)
+- **View**: `CtrlWizNW.UI/Views/HelpView.xaml` / `HelpView.xaml.cs` — minimal code-behind
+- **ViewModel**: `CtrlWizNW.UI/ViewModels/HelpViewModel.cs` — implements `INotifyPropertyChanged`
+- **Commands**: `GalaSoft.MvvmLight.Command.RelayCommand` for button bindings
+- Property change notification:
+  ```csharp
+  private void RaisePropertyChanged(string propertyName)
+  {
+      if (this.PropertyChanged != null)
+          this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+  }
+  ```
+- `nameof()` used for all `RaisePropertyChanged` calls — no magic strings.
+- `ObservableCollection<T>` used for all bindable list properties.
 
-- Views implement interfaces (ISpeedSettingForm, IHelpForm). Never reference a concrete
-  form type from a presenter.
-- Presenters receive their dependencies by interface through a private constructor that
-  accepts (ISpeedSettingForm, ISpeedSettingModel, IMessageService). A public convenience
-  constructor with primitive parameters constructs concrete instances internally and
-  delegates to the private constructor.
-- EventArgs subclasses are lightweight: one or two properties, no logic.
-  Example: SettingEventArgs { int SettingValue }.
-- The MessageService / IMessageService abstraction wraps MessageBox.Show. Do not call
-  MessageBox.Show directly from presenters or models; always inject IMessageService.
+### Singleton
+Generic thread-safe Singleton base class at `CtrlWizNW/Singleton.cs`:
+```csharp
+public abstract class Singleton<T> where T : class, new()
+{
+    private static readonly Lazy<T> instance = new Lazy<T>(() => new T());
+    public static T Instance { get { lock (lockObject) return instance.Value; } }
+}
+```
+Used by `NavisUtils : Singleton<NavisUtils>` in `CtrlWizNW/CtrlWiz.NW/NavisUtils.cs`.
 
-### MVVM (WPF, CtrlWizNW.UI)
+### Extension Methods
+Each project places extension methods in a `Utility/ExtensionMethods.cs` file:
+- `CtrlWiz.Logging/Utility/ExtensionMethods.cs` — `GetExceptionInfo(this Exception ex)`
+- `CtrlWizRVT/Utility/ExtensionMethods.cs` — geometry helpers (`RotateByAxis`, `ConvertToVector3`, `ConvertToXYZ`) — marked `internal static`
+- `CtrlWizForms.CustomControls/Utility/ExtensionMethods.cs` — `FillRoundedRectangle` for GDI+
 
-- ViewModels implement INotifyPropertyChanged directly (no base class). The
-  RaisePropertyChanged helper method checks for null before invoking the event:
-    if (this.PropertyChanged != null)
-        this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-- Commands are typed as ICommand and backed by GalaSoft.MvvmLight RelayCommand.
-  They are initialized lazily in the property getter (null-check + assign pattern).
-- User settings are accessed and persisted exclusively through Settings.Default[propertyName]
-  followed by Settings.Default.Save(). Do not use typed properties on the Settings class
-  directly when the property name must be computed at runtime.
-- Collections exposed to the view are ObservableCollection<T> returned from a property
-  getter that constructs a fresh collection each time from the backing List<T>. This is the
-  established pattern in HelpViewModel; do not replace it with a field-backed
-  ObservableCollection unless you also wire up list-change propagation.
+### `#region` Usage
+`#region` / `#endregion` used for:
+- Grouping Revit attributes: `#region Attributes` in `CmdActivateController.cs`
+- Labeling disabled/old code: `#region Working WinForms Version`, `#region Unused Code`
+- Partitioning NW plugin classes: `#region CmdTargetEnable`, `#region CmdTargetDisable`
 
-### Singleton (CtrlWizNW)
+---
 
-- Use the generic Singleton<T> base class (Singleton.cs) for utilities that must have a
-  single shared instance. NavisUtils is the only current example:
-    public class NavisUtils : Singleton<NavisUtils> { ... }
-  Access the instance via NavisUtils.Instance. Do not introduce a second singleton
-  implementation.
+## Event Handling
 
-### Controller Loop
+Standard .NET pattern with typed `EventArgs` subclasses. Null-conditional invocation used throughout:
+```csharp
+// CtrlWizForms/Views/SpeedSettingForm.cs
+public event EventHandler<SettingEventArgs> LinearTrackBarValueChanged;
 
-- The controller polling loop is an async void method (InitializeController) that
-  immediately awaits a vibration startup method and then awaits a while-loop Task (Update).
-- The loop uses await Task.Delay(N) for cadence control. Do not introduce Thread.Sleep.
-- The loop reads GamePad.GetState(PlayerIndex.One) once per iteration, stores the result
-  in state, and keeps the previous frame in prevState. Edge-detection (button just pressed)
-  is done by comparing prevState.Buttons.X == ButtonState.Released &&
-  state.Buttons.X == ButtonState.Pressed.
-- Dead-zone threshold is 0.002f for thumbstick axes and trigger values. Do not change this
-  value without profiling on real hardware.
+private void LinearTrackBar_ValueChanged(object sender, EventArgs e)
+{
+    LinearTrackBarValueChanged?.Invoke(this, new SettingEventArgs() { SettingValue = LinearTrackBar.Value });
+}
+```
+
+Settings change propagation chains through a static event on `GetControllerElement`:
+```csharp
+// CtrlWizNW.UI/Properties/GetControllerElement.cs
+Settings.Default.PropertyChanged += Default_PropertyChanged;
+public static event PropertyChangedEventHandler SettingsPropertyChanged;
+```
 
 ---
 
 ## Error Handling
 
-- Every public entry-point method (IExternalCommand.Execute, IExternalApplication.OnStartup,
-  IExternalApplication.OnShutdown) wraps its body in a try/catch(Exception e).
-  - Revit entry points call TaskDialog.Show("Error", e.Message) before returning Failed.
-  - Non-entry-point catch blocks call ex.LogException() (the extension method from
-    CtrlWiz.Logging) and do not re-throw unless the caller needs to know.
-- Paddle SDK callbacks are always wrapped in their own try/catch that calls ex.LogException()
-  so that a SDK callback exception cannot propagate up to the host application.
-- Do not swallow exceptions silently (empty catch blocks). If you cannot handle an exception
-  meaningfully, at minimum call ex.LogException().
+### NW Plugin (CmdViewpoint.cs)
+```csharp
+catch (Exception ex)
+{
+    ex.LogException();   // write to %TEMP%\CtrlWizNW.log, swallow exception
+}
+```
+
+### Revit Plugin (ExAppCtrlWizRVT.cs, CmdActivateController.cs)
+```csharp
+catch (Exception e)
+{
+    TaskDialog.Show("Error", e.Message);
+    return Result.Failed;
+}
+```
+
+The inner game loop in `CmdActivateController.cs` shows error AND re-throws:
+```csharp
+catch (Exception ex)
+{
+    ExAppCtrlWizRVT.MessageService.ShowError($"Error occurred:\n{ex.Message}");
+    throw;
+}
+```
+
+**What is not done:** No structured log levels, no `AggregateException` handling for async tasks, and some catch blocks in the NW main loop silently swallow all exceptions.
 
 ---
 
-## Logging
+## Logging Pattern
 
-- Call Logger.SetUpLogger(LoggedApp.NW) or Logger.SetUpLogger(LoggedApp.RVT) exactly once,
-  during application startup (OnStartup for Revit; plugin initialization for Navisworks).
-- Log exceptions by calling the extension method on the exception object:
-    catch (Exception ex) { ex.LogException(); }
-  This is defined in CtrlWiz.Logging.Utility.ExtensionMethods and is available wherever
-  CtrlWiz.Logging is referenced.
-- Do not call Logger methods directly (Logger.LogException). Use the extension method.
-- Log file locations (read-only, set by Logger.SetUpLogger):
-    NW:  %TEMP%\CtrlWizNW.log
-    RVT: %TEMP%\..\CtrlWizRVT.log   (one level above the per-user temp folder)
+`CtrlWiz.Logging/Logger.cs` is a `static` class writing to a UTF-8 flat file.
 
----
+**Initialization (called once at plugin startup):**
+```csharp
+Logger.SetUpLogger(LoggedApp.NW);   // in CmdViewpoint constructor
+Logger.SetUpLogger(LoggedApp.RVT);  // in ExAppCtrlWizRVT.OnStartup
+```
 
-## License Gate
+**Log file locations:**
+- NW: `%TEMP%\CtrlWizNW.log`
+- RVT: `%TEMP%\..\CtrlWizRVT.log`
 
-- Any command that requires an active license must call ExAppCtrlWizRVT.IsLicenseActive()
-  (Revit) before performing any work. The Navisworks equivalent checks isProductActivated
-  inside the command handler.
-- InAppCheckout is constructed once during OnStartup and stored on the application class as
-  a static property. Do not construct a new InAppCheckout per command invocation.
-- Subscribe to InAppCheckout.ActivationChanged in OnStartup and unsubscribe in OnShutdown.
+**Usage:**
+```csharp
+ex.LogException();   // extension method, appends timestamp + message + stack trace
+```
+
+Only exceptions are logged. No informational, debug, or warning logging exists.
 
 ---
 
-## Build Configurations
+## Settings / User Preferences
 
-- Debug: Targets one specific host version (RVT 2019 or NW 2022). Used for local
-  development only. Output goes to bin\Debug\ or directly into the ApplicationPlugins bundle.
-- Release configurations are named after the host version: RVT19, RVT20, RVT21, RVT22,
-  NW17, NW18, NW19, NW20, NW21, NW22.
-- Each release configuration defines a single conditional compilation symbol:
-    RVT: RVT19 / RVT20 / RVT21 / RVT22
-    NW:  NW2017 / NW2018 / NW2019 / NW2020 / NW2021 / NW2022
-  TRACE is also defined in all release builds.
-- Release builds output to ..\CtrlWiz.Release.Assemblies\{Revit|Navisworks}\$(Configuration)\.
-- Post-build signing: every NW and RVT project signs its output DLL with signtool.exe using
-  the VIATechnik_CS_cert.pfx certificate and the Comodoca SHA-256 timestamp authority. The
-  certificate path is relative to the project; keep it in the project root.
-- Do not add new PropertyGroup blocks for host SDK paths using absolute paths. SDK paths
-  must be resolved through $(ProgramW6432)\Autodesk\<Product> <Year>\ using MSBuild
-  properties defined per configuration.
+Controller button mappings are persisted via .NET `Properties.Settings.Default` in `CtrlWizNW.UI`. Keys use the `NV_` prefix and store `Function` enum values:
+- Buttons: `NV_AButton`, `NV_BButton`, `NV_XButton`, `NV_YButton`, `NV_RBumber`, `NV_StartButton`
+- Triggers: `NV_LTrigger`, `NV_RTrigger`
+- ThumbSticks: `NV_LStick`, `NV_RStick`
+
+Persistence: `Settings.Default.Save()` called after each user change.
+Reset: `Settings.Default.Reset()` called by Restore Default command.
 
 ---
 
-## Comments and Dead Code
+## Comments and Documentation
 
-- Comments explaining intent ("// Ask the Product to get its latest state") are acceptable.
-- Do not leave large commented-out code blocks in production files without a clear note
-  explaining why the code is retained. Prefer deleting dead code and using git history for
-  recovery.
-- Commented-out code that represents an in-progress alternative implementation must be
-  accompanied by a TODO or FIXME comment with a brief explanation.
-- The #region / #endregion pattern is used in places (e.g., "Create Ribbon", "Attributes",
-  "declare FPS"). New regions may be added only to group tightly related declarations (plugin
-  attributes, ribbon commands). Do not use regions to hide implementation logic.
-
----
-
-## Resource Strings
-
-- All user-visible strings for ribbon labels, tooltip text, and dialog captions are stored
-  in project-level Resources.resx files and accessed through the generated Resources class:
-    Resources.TabName, Resources.ActivateControllerButtonText, etc.
-- Do not hard-code user-visible strings inline in code. URLs that are not user-visible
-  (e.g., Process.Start("https://...")) are acceptable inline.
-- Sensitive values (Paddle API key, vendor ID, product IDs) are embedded in Resources.resx
-  and accessed through properties on InAppCheckout. Do not add new sensitive values as
-  compile-time literals.
-
----
-
-## File and Folder Layout
-
-- Host-specific source files go inside a folder named after the root namespace sub-part:
-    CtrlWizRVT/CtrlWiz.RVT/
-    CtrlWizNW/CtrlWiz.NW/
-- Shared utilities go into a Utility/ subfolder within the project that owns them.
-- Models, Views, Presenters, and ViewModels each get their own top-level folder within their
-  project. Do not mix concerns across folders.
-- Designer-generated files (*.Designer.cs, *.Designer.xaml) are kept alongside their
-  hand-authored counterparts and edited only by tooling.
-- The Views/ folder at the repository root contains loose XAML files that duplicate content
-  in CtrlWizNW.UI/Views/. Do not add further files there; consolidate to CtrlWizNW.UI.
+- No XML doc comments (`///`) exist anywhere in the codebase.
+- Inline `//` comments explain non-obvious API calls and math operations.
+- Large blocks of superseded code are commented out rather than deleted, usually wrapped in a named `#region`. Examples: `CtrlWizForms/Views/HelpFormNW.cs`, `CtrlWizNW.UI/Properties/GetControllerElement.cs`.
+- Designer-generated files (`*.Designer.cs`) are not manually commented.
