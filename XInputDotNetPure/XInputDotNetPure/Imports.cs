@@ -2,14 +2,21 @@
 
 namespace XInputDotNetPure
 {
-    class Imports
+    internal static class Imports
     {
-        internal const string DLLName = "XInputInterface";
+        private const string DLLName = "xinput1_4.dll";
 
         [DllImport(DLLName)]
-        public static extern uint XInputGamePadGetState(uint playerIndex, out GamePadState.RawState state);
+        public static extern uint XInputGetState(uint dwUserIndex, out GamePadState.RawState pState);
 
         [DllImport(DLLName)]
-        public static extern void XInputGamePadSetState(uint playerIndex, float leftMotor, float rightMotor);
+        public static extern uint XInputSetState(uint dwUserIndex, ref Vibration pVibration);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Vibration
+        {
+            public ushort wLeftMotorSpeed;
+            public ushort wRightMotorSpeed;
+        }
     }
 }
