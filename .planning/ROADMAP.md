@@ -28,7 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. It is known whether NWRibbonButton type resolves in navisworks.gui.roamer.dll under NW2025
   3. It is confirmed which DLL and XAML artifacts are actually present in Contents/Nw25/ at build time (no stale Debug|x64 artifacts)
   4. A written diagnosis exists stating the specific root cause of the ribbon not appearing
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Snapshot Nw25 artifacts, enable Fusion logging, launch NW2025, capture all log sources
+- [ ] 01-02-PLAN.md — Analyze captured logs and write DIAGNOSIS.md with confirmed root cause
 
 ### Phase 2: Ribbon Fix
 **Goal**: CtrlWiz ribbon tab appears in Navisworks 2025 on startup
@@ -71,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Diagnose | 0/? | Not started | - |
+| 1. Diagnose | 0/2 | In progress | - |
 | 2. Ribbon Fix | 0/? | Not started | - |
 | 3. Navigation Validation | 0/? | Not started | - |
 | 4. Build Hardening | 0/? | Not started | - |
