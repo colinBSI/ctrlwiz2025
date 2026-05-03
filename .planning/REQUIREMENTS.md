@@ -52,22 +52,22 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| RIBBON-01 | — | Pending |
-| RIBBON-02 | — | Pending |
-| NAV-01 | — | Pending |
-| NAV-02 | — | Pending |
-| NAV-03 | — | Pending |
-| NAV-04 | — | Pending |
-| SET-01 | — | Pending |
-| SET-02 | — | Pending |
-| BUILD-01 | — | Pending |
-| BUILD-02 | — | Pending |
+| BUILD-02 | Phase 1 | Pending |
+| RIBBON-01 | Phase 2 | Pending |
+| RIBBON-02 | Phase 2 | Pending |
+| BUILD-01 | Phase 2 | Pending |
+| NAV-01 | Phase 3 | Pending |
+| NAV-02 | Phase 3 | Pending |
+| NAV-03 | Phase 3 | Pending |
+| NAV-04 | Phase 3 | Pending |
+| SET-01 | Phase 3 | Pending |
+| SET-02 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 10 total
-- Mapped to phases: 0 (roadmap pending)
-- Unmapped: 10 ⚠️
+- Mapped to phases: 10
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-03*
-*Last updated: 2026-05-03 after initial definition*
+*Last updated: 2026-05-03 after roadmap creation*
