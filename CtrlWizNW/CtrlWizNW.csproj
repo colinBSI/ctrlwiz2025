@@ -173,6 +173,23 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
+    <AdWindowsPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\AdWindows.dll</AdWindowsPath>
+    <AutodeskNavisworksApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Api.dll</AutodeskNavisworksApiPath>
+    <AutodeskNavisworksControlsPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Controls.dll</AutodeskNavisworksControlsPath>
+    <navisworksguiroamerPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\navisworks.gui.roamer.dll</navisworksguiroamerPath>
+    <AutodeskNavisworksClashPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Clash.dll</AutodeskNavisworksClashPath>
+    <AutodeskNavisworksComApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.ComApi.dll</AutodeskNavisworksComApiPath>
+    <AutodeskNavisworksInteropComApiPath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\Autodesk.Navisworks.Interop.ComApi.dll</AutodeskNavisworksInteropComApiPath>
+    <navisworksguiinterfacePath>$(ProgramW6432)\Autodesk\Navisworks Manage 2025\navisworks.gui.interface.dll</navisworksguiinterfacePath>
+    <OutputPath>$(PROGRAMDATA)\Autodesk\ApplicationPlugins\CtrlWiz.NW.bundle\Contents\Nw25\</OutputPath>
+    <DefineConstants>DEBUG;NW2025</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
@@ -234,11 +251,7 @@
       <HintPath>$(navisworksguiinterfacePath)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Interop.SHDocVw">
-      <HintPath>..\packages\Interop.SHDocVw\Interop.SHDocVw.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
+
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -305,21 +318,6 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="SHDocVw">
-      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </COMReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe" sign /d "CtrlWiz - Xbox Controller for Revit" /fd sha256 /tr "http://timestamp.comodoca.com/?td=sha256" /td sha256 /a "$(TargetDir)CtrlWizNW.dll"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
