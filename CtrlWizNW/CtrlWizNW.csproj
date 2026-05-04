@@ -210,6 +210,20 @@
     <None Include="packages.config" />
     <None Include="VIATechnik_CS_cert.pfx" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
+    <!-- NW25 requires CustomRibbon.name as a loose file alongside the DLL.
+         The unconditional None item above is inert (no copy). This item
+         copies the file for the Debug NW25 build only. -->
+    <None Include="CustomRibbon\CustomRibbon.name">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
+    <!-- Same for release NW25 configuration. -->
+    <None Include="CustomRibbon\CustomRibbon.name">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrlWiz.NW\CmdInput.cs" />
     <Compile Include="CtrlWiz.NW\CmdTool.cs" />
