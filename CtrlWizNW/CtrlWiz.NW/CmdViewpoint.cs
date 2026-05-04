@@ -45,6 +45,20 @@ namespace CtrlWiz.NW
 
     public class CmdViewpoint : CommandHandlerPlugin, IDisposable
     {
+        static CmdViewpoint()
+        {
+            try
+            {
+                System.IO.File.WriteAllText(
+                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "CtrlWizNW_load.txt"),
+                    "DLL loaded at: " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + System.Environment.NewLine +
+                    "AppDomain base: " + AppDomain.CurrentDomain.BaseDirectory + System.Environment.NewLine +
+                    "DLL location: " + typeof(CmdViewpoint).Assembly.Location
+                );
+            }
+            catch { }
+        }
+
         private InputSimulator _inputSimulator = new InputSimulator();
         private IntPtr _activeAppProcessId;
         //

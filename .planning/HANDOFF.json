@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-05-04T12:00:00Z",
+  "phase": "2",
+  "phase_name": "ribbon-fix",
+  "phase_dir": ".planning/phases/02-ribbon-fix",
+  "plan": 4,
+  "task": 3,
+  "total_tasks": 3,
+  "status": "paused",
+  "completed_tasks": [
+    {"id": 1, "name": "Replace NWRibbonButton with RibbonButton in CustomRibbon.xaml", "status": "done", "commit": "2265b65"},
+    {"id": 2, "name": "Rebuild Debug NW25|x64 and verify deployment", "status": "done", "commit": "2265b65"}
+  ],
+  "remaining_tasks": [
+    {"id": 3, "name": "Human verify + DLL load investigation", "status": "in_progress", "progress": "XAML fix deployed; DLL confirmed NOT loading (static ctor test file absent); root cause is dependency resolution failure in NW2025 process context"}
+  ],
+  "blockers": [
+    {
+      "description": "CtrlWizNW.dll does not load in NW2025 at all — static constructor test file not created after NW2025 launch. NW2025 plugin loader cannot resolve CtrlWizNW.UI.dll and XInputDotNetPure.dll from the bundle Nw25 directory.",
+      "type": "technical",
+      "workaround": "Need to investigate NW2025 assembly probing path — check roamer.exe.config, or test by placing dependency DLLs in NW2025 install directory"
+    }
+  ],
+  "human_actions_pending": [
+    {"action": "Launch NW2025 after DLL load fix to verify ribbon tab appears", "context": "Human verification checkpoint Task 3 of plan 02-04", "blocking": true}
+  ],
+  "decisions": [
+    {"decision": "Replace local:NWRibbonButton with RibbonButton (Autodesk.Windows default namespace)", "rationale": "NWRibbonButton absent from NW2025 navisworks.gui.roamer.dll; RibbonButton present in AdWindows, confirmed by reflection probe", "phase": "2"},
+    {"decision": "Added static constructor diagnostic to CmdViewpoint.cs (writes CtrlWizNW_load.txt to %TEMP%)", "rationale": "Needed to confirm whether DLL loads at all; result: file NOT created = DLL not loading", "phase": "2"}
+  ],
+  "uncommitted_files": [
+    "CtrlWizNW/CtrlWiz.NW/CmdViewpoint.cs (diagnostic static ctor — MUST be removed before ship)"
+  ],
+  "next_action": "Investigate NW2025 dependency resolution. Check C:\\Program Files\\Autodesk\\Navisworks Manage 2025\\roamer.exe.config for probing paths. Test hypothesis: copy CtrlWizNW.UI.dll and XInputDotNetPure.dll to NW2025 install dir, relaunch, check if CtrlWizNW_load.txt appears.",
+  "context_notes": "XAML fix is 100% correct. BAML also correct. NW2025 API v22.0.0.0 matches compiled version. All DLLs present in bundle. The failure is that NW2025's CLR cannot find CtrlWizNW.dll's PROJECT-reference dependencies (CtrlWizNW.UI, XInputDotNetPure) from the bundle directory. NW2022 must have an AssemblyResolve handler that probes the plugin directory. NW2025 may use a different loading context (e.g., isolated AssemblyLoadContext) that lacks this handler. Alternative: roamer.exe.config may have changed probing paths."
+}
