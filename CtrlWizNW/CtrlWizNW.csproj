@@ -275,6 +275,20 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
+    <!-- NW25 requires CustomRibbon.xaml as a loose file alongside the DLL.
+         The Page item above compiles XAML to BAML for NW22; this Content item
+         copies the raw .xaml file to output for NW25. Both items coexist. -->
+    <Content Include="CustomRibbon\CustomRibbon.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
+    <!-- Same as above for the release NW25 configuration. -->
+    <Content Include="CustomRibbon\CustomRibbon.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Help28.png" />
     <Content Include="Images\Idea.png" />
