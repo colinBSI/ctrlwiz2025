@@ -43,8 +43,13 @@ Plans:
   2. All ribbon buttons (Activate, Settings, etc.) are present and correctly labelled
   3. Debug NW25|x64 build deploys both CtrlWizNW.dll and CustomRibbon resources to Contents/Nw25/ automatically on build
   4. The fix is confirmed by launching NW2025 on the dev machine
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
+
+Plans:
+- [ ] 02-01-PLAN.md — Fix CustomRibbon.xaml and CustomRibbon.name copy-to-output in CtrlWizNW.csproj (NW25 configs)
+- [ ] 02-02-PLAN.md — Rename Nw25 AppName to CtrlWizNW25 in PackageContents.xml (AppName collision fix)
+- [ ] 02-03-PLAN.md — Rebuild Debug NW25|x64, verify artifact deployment, launch NW2025, confirm ribbon appears
 
 ### Phase 3: Navigation Validation
 **Goal**: Xbox controller navigation and settings UI work end-to-end in NW2025
@@ -76,6 +81,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Diagnose | 2/2 | Complete | 2026-05-03 |
-| 2. Ribbon Fix | 0/? | Not started | - |
+| 2. Ribbon Fix | 0/3 | Not started | - |
 | 3. Navigation Validation | 0/? | Not started | - |
 | 4. Build Hardening | 0/? | Not started | - |
