@@ -12,7 +12,7 @@ Four phases take the NW25 plugin from an unknown failure state to a clean, harde
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Diagnose** - Confirm the exact failure path before any code changes
+- [x] **Phase 1: Diagnose** - Confirm the exact failure path before any code changes (completed 2026-05-03)
 - [ ] **Phase 2: Ribbon Fix** - Make the CtrlWiz ribbon tab appear in Navisworks 2025
 - [ ] **Phase 3: Navigation Validation** - Verify Xbox controller navigation and settings UI work end-to-end in NW2025
 - [ ] **Phase 4: Build Hardening** - Ensure the NW25 build is clean, reliable, and easy to port to future NW versions
@@ -31,8 +31,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Snapshot Nw25 artifacts, enable Fusion logging, launch NW2025, capture all log sources
-- [ ] 01-02-PLAN.md — Analyze captured logs and write DIAGNOSIS.md with confirmed root cause
+- [x] 01-01-PLAN.md — Snapshot Nw25 artifacts, enable Fusion logging, launch NW2025, capture all log sources
+- [x] 01-02-PLAN.md — Analyze captured logs and write DIAGNOSIS.md with confirmed root cause
 
 ### Phase 2: Ribbon Fix
 **Goal**: CtrlWiz ribbon tab appears in Navisworks 2025 on startup
@@ -75,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Diagnose | 0/2 | In progress | - |
+| 1. Diagnose | 2/2 | Complete | 2026-05-03 |
 | 2. Ribbon Fix | 0/? | Not started | - |
 | 3. Navigation Validation | 0/? | Not started | - |
 | 4. Build Hardening | 0/? | Not started | - |

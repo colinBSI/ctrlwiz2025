@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-05-03)
 
 **Core value:** An engineer with Navisworks 2025 can activate CtrlWiz from the ribbon and navigate their model with an Xbox controller.
-**Current focus:** Phase 1 — Diagnose
+**Current focus:** Phase 2 — Ribbon Fix
 
 ## Current Position
 
-Phase: 1 of 4 (Diagnose)
+Phase: 2 of 4 (Ribbon Fix)
 Plan: 0 of ? in current phase
 Status: Ready to plan
-Last activity: 2026-05-03 — Roadmap created (4 phases)
+Last activity: 2026-05-03 — Phase 1 complete (2/2 plans verified)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -51,9 +51,9 @@ None yet.
 
 ### Blockers/Concerns
 
-- Root cause of ribbon not appearing is unknown — Phase 1 must establish this before any code changes
+- ~~Root cause of ribbon not appearing is unknown~~ — RESOLVED Phase 1: missing CustomRibbon.xaml and .name from Contents/Nw25/ (csproj Page/None build actions)
 - Machine requires Admin By Request elevation to write to C:\ProgramData\ (factor into deploy testing)
-- No code-signing cert; unsigned DLLs must load in NW2025 — worth confirming during Phase 1 CLR Fusion logging
+- No code-signing cert; unsigned DLLs must load in NW2025 — CLR Fusion logs were empty so no bind failures observed; will confirm on first post-fix launch
 
 ## Deferred Items
 
