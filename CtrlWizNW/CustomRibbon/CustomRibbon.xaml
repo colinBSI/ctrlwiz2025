@@ -8,7 +8,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Autodesk.Navisworks.Gui.Roamer.AIRLook;assembly=navisworks.gui.roamer"
     xmlns:vm="clr-namespace:CtrlWiz.NW"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=vm:Debug}"
@@ -20,11 +19,11 @@
     <RibbonTab Id="ID_CustomTab_1" Title="CtrlWiz" >
         <RibbonPanel x:Uid="RibbonPanel_1" >
             <RibbonPanelSource x:Uid="RibbonPanelSource_RibbonPanel_1" KeyTip="C1" Title="XBox Controller" >
-                <local:NWRibbonButton x:Uid="Button_1" Id="ID_Button_1" Size="Large" ShowText="True" Orientation="Vertical" />
-                <local:NWRibbonButton x:Uid="Button_2" Id="ID_Button_2" Size="Large" ShowText="True" Orientation="Vertical" />
-                <local:NWRibbonButton x:Uid="Button_3" Id="ID_Button_3" Size="Large" ShowText="True" Orientation="Vertical"/>
-                <local:NWRibbonButton x:Uid="Button_4" Id="ID_Button_4" Size="Large" ShowText="True" Orientation="Vertical"/>
-                <local:NWRibbonButton x:Uid="Button_5" Id="ID_Button_5" Size="Large" ShowText="True" Orientation="Vertical"/>
+                <RibbonButton x:Uid="Button_1" Id="ID_Button_1" Size="Large" ShowText="True" Orientation="Vertical" />
+                <RibbonButton x:Uid="Button_2" Id="ID_Button_2" Size="Large" ShowText="True" Orientation="Vertical" />
+                <RibbonButton x:Uid="Button_3" Id="ID_Button_3" Size="Large" ShowText="True" Orientation="Vertical" />
+                <RibbonButton x:Uid="Button_4" Id="ID_Button_4" Size="Large" ShowText="True" Orientation="Vertical" />
+                <RibbonButton x:Uid="Button_5" Id="ID_Button_5" Size="Large" ShowText="True" Orientation="Vertical" />
 
    
                 <!--<local:NWRibbonMenuButton x:Uid="Button_4" Id="ID_Button_4"
