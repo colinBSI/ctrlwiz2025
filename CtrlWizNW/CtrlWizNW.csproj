@@ -213,14 +213,17 @@
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
     <!-- NW25 requires CustomRibbon.name as a loose file alongside the DLL.
          The unconditional None item above is inert (no copy). This item
-         copies the file for the Debug NW25 build only. -->
+         copies the file for the Debug NW25 build only.
+         Link flattens the path so the file lands at Nw25\CustomRibbon.name, not Nw25\CustomRibbon\CustomRibbon.name. -->
     <None Include="CustomRibbon\CustomRibbon.name">
+      <Link>CustomRibbon.name</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
     <!-- Same for release NW25 configuration. -->
     <None Include="CustomRibbon\CustomRibbon.name">
+      <Link>CustomRibbon.name</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -292,14 +295,17 @@
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
     <!-- NW25 requires CustomRibbon.xaml as a loose file alongside the DLL.
          The Page item above compiles XAML to BAML for NW22; this Content item
-         copies the raw .xaml file to output for NW25. Both items coexist. -->
+         copies the raw .xaml file to output for NW25. Both items coexist.
+         Link flattens the path so the file lands at Nw25\CustomRibbon.xaml, not Nw25\CustomRibbon\CustomRibbon.xaml. -->
     <Content Include="CustomRibbon\CustomRibbon.xaml">
+      <Link>CustomRibbon.xaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
     <!-- Same as above for the release NW25 configuration. -->
     <Content Include="CustomRibbon\CustomRibbon.xaml">
+      <Link>CustomRibbon.xaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
