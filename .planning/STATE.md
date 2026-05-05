@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 999.1-01-PLAN.md (2026-05-05)
+last_updated: "2026-05-05T05:38:05Z"
+last_activity: "2026-05-05 — Phase 999.1 Plan 01 executed: StadiaDetector.cs created, Settings flag added, System.Management reference added"
+progress:
+  total_phases: 4
+  completed_phases: 1
+  total_plans: 7
+  completed_plans: 6
+  percent: 86
+---
+
 # Project State
 
 ## Project Reference
@@ -9,28 +25,30 @@ See: .planning/PROJECT.md (updated 2026-05-03)
 
 ## Current Position
 
-Phase: 2 of 4 (Ribbon Fix)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-05-03 — Phase 1 complete (2/2 plans verified)
+Phase: 999.1 (Stadia Controller Support — backlog)
+Plan: 1 of 3 complete in phase 999.1
+Status: Executing (999.1-02 next)
+Last activity: 2026-05-05 — Phase 999.1 Plan 01 executed: StadiaDetector.cs, StadiaViGEmDialogShown setting, System.Management csproj reference
 
-Progress: [██░░░░░░░░] 25%
+Progress: [████████░░] 86%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: 0 hours
+
+- Total plans completed: 1
+- Average duration: ~2 min
+- Total execution time: ~2 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 999.1 Stadia | 1 | ~2 min | ~2 min |
 
 **Recent Trend:**
-- Last 5 plans: —
+
+- Last 5 plans: 999.1-01 (~2 min)
 - Trend: —
 
 *Updated after each plan completion*
@@ -44,6 +62,9 @@ Recent decisions affecting current work:
 
 - Project init: P/Invoke rewritten to xinput1_4.dll (Windows system DLL) — XInput fix already applied
 - Project init: Debug NW25|x64 build config auto-deploys to bundle — deploy pipeline exists but ribbon still missing
+- 999.1-01: StadiaDetector uses fully-qualified Settings access (no using alias) — keeps class dependency-free
+- 999.1-01: catch {} (empty) on WMI + Process.Start — no logger dependency in StadiaDetector
+- 999.1-01: StadiaViGEmDialogShown set true regardless of Yes/No button click — dialog fires once ever
 
 ### Pending Todos
 
@@ -64,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-03
-Stopped at: Roadmap created — ready to plan Phase 1
+Last session: 2026-05-05T05:38:05Z
+Stopped at: Completed 999.1-01-PLAN.md
 Resume file: None
