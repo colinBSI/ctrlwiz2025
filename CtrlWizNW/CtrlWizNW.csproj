@@ -232,6 +232,7 @@
     <Compile Include="CtrlWiz.NW\CmdTool.cs" />
     <Compile Include="CtrlWiz.NW\CmdViewpoint.cs" />
     <Compile Include="CtrlWiz.NW\NavisUtils.cs" />
+    <Compile Include="CtrlWiz.NW\StadiaDetector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
   </ItemGroup>
