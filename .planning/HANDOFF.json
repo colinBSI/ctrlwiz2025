@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-04T12:00:00Z",
+  "timestamp": "2026-05-05T10:00:00Z",
   "phase": "2",
   "phase_name": "ribbon-fix",
   "phase_dir": ".planning/phases/02-ribbon-fix",
@@ -10,28 +10,37 @@
   "status": "paused",
   "completed_tasks": [
     {"id": 1, "name": "Replace NWRibbonButton with RibbonButton in CustomRibbon.xaml", "status": "done", "commit": "2265b65"},
-    {"id": 2, "name": "Rebuild Debug NW25|x64 and verify deployment", "status": "done", "commit": "2265b65"}
+    {"id": 2, "name": "Rebuild Debug NW25|x64 and deploy", "status": "done", "commit": "2265b65"}
   ],
   "remaining_tasks": [
-    {"id": 3, "name": "Human verify + DLL load investigation", "status": "in_progress", "progress": "XAML fix deployed; DLL confirmed NOT loading (static ctor test file absent); root cause is dependency resolution failure in NW2025 process context"}
+    {"id": 3, "name": "Human verify ribbon tab — BLOCKED: DLL load failure root cause unknown", "status": "in_progress", "progress": "Plugin Manager shows Enabled, series codes correct, MSI uninstalled, PaddleSDK transitive deps added, XAML simplified — still no tab"}
   ],
   "blockers": [
     {
-      "description": "CtrlWizNW.dll does not load in NW2025 at all — static constructor test file not created after NW2025 launch. NW2025 plugin loader cannot resolve CtrlWizNW.UI.dll and XInputDotNetPure.dll from the bundle Nw25 directory.",
+      "description": "CtrlWizNW.dll silently fails to load in NW2025 process. Plugin Manager shows Enabled but ribbon tab never appears. Exact failure chain unknown — needs CLR Fusion logging to diagnose.",
       "type": "technical",
-      "workaround": "Need to investigate NW2025 assembly probing path — check roamer.exe.config, or test by placing dependency DLLs in NW2025 install directory"
+      "workaround": "Enable Fusion logging via Admin By Request (HKLM:\\SOFTWARE\\Microsoft\\Fusion), relaunch NW2025, check C:\\FusionLog\\ for bind failure details."
     }
   ],
   "human_actions_pending": [
-    {"action": "Launch NW2025 after DLL load fix to verify ribbon tab appears", "context": "Human verification checkpoint Task 3 of plan 02-04", "blocking": true}
+    {
+      "action": "Enable CLR Fusion logging via Admin By Request elevation, relaunch NW2025, collect C:\\FusionLog\\ output, then disable logging",
+      "context": "Fusion logging is the only way to see exact assembly bind failures when NW silently swallows plugin load exceptions",
+      "blocking": true
+    }
   ],
   "decisions": [
-    {"decision": "Replace local:NWRibbonButton with RibbonButton (Autodesk.Windows default namespace)", "rationale": "NWRibbonButton absent from NW2025 navisworks.gui.roamer.dll; RibbonButton present in AdWindows, confirmed by reflection probe", "phase": "2"},
-    {"decision": "Added static constructor diagnostic to CmdViewpoint.cs (writes CtrlWizNW_load.txt to %TEMP%)", "rationale": "Needed to confirm whether DLL loads at all; result: file NOT created = DLL not loading", "phase": "2"}
+    {"decision": "NW series codes: NW2025=Nw22, NW2022=Nw19", "rationale": "Confirmed from iConstructClash.bundle reference", "phase": "2"},
+    {"decision": "MSI uninstalled permanently — bundle now developer-deployed", "rationale": "MSI ACLs were preventing file overwrites without admin; uninstall frees all ACLs", "phase": "2"},
+    {"decision": "NW uses byte-array Assembly.Load() for managed plugins", "rationale": "iConstruct DLLs also absent from Process.Modules despite loading; byte-array loading is confirmed", "phase": "2"},
+    {"decision": "Added StructureMap.dll, Newtonsoft.Json.dll, Interop.SHDocVw.dll to Nw25/ bundle", "rationale": "PaddleSDK.dll requires these transitive deps; they were absent from bundle", "phase": "2"},
+    {"decision": "CustomRibbon.xaml simplified to minimal namespaces (AdWindows + x only)", "rationale": "Removed xmlns:vm clr-namespace:CtrlWiz.NW (no assembly qualifier) and all design-time declarations to eliminate possible XAML parse failure", "phase": "2"}
   ],
   "uncommitted_files": [
-    "CtrlWizNW/CtrlWiz.NW/CmdViewpoint.cs (diagnostic static ctor — MUST be removed before ship)"
+    "CtrlWizNW/CustomRibbon/CustomRibbon.xaml (design-time namespace declarations removed)",
+    "CtrlWizNW/CustomRibbon/PackageContents.xml (series codes fixed: Nw19/Nw22)",
+    "CtrlWizNW/CtrlWiz.NW/CmdViewpoint.cs (diagnostic static ctor still present — MUST remove before ship)"
   ],
-  "next_action": "Investigate NW2025 dependency resolution. Check C:\\Program Files\\Autodesk\\Navisworks Manage 2025\\roamer.exe.config for probing paths. Test hypothesis: copy CtrlWizNW.UI.dll and XInputDotNetPure.dll to NW2025 install dir, relaunch, check if CtrlWizNW_load.txt appears.",
-  "context_notes": "XAML fix is 100% correct. BAML also correct. NW2025 API v22.0.0.0 matches compiled version. All DLLs present in bundle. The failure is that NW2025's CLR cannot find CtrlWizNW.dll's PROJECT-reference dependencies (CtrlWizNW.UI, XInputDotNetPure) from the bundle directory. NW2022 must have an AssemblyResolve handler that probes the plugin directory. NW2025 may use a different loading context (e.g., isolated AssemblyLoadContext) that lacks this handler. Alternative: roamer.exe.config may have changed probing paths."
+  "next_action": "Enable Fusion logging via Admin By Request (elevated PS: set HKLM:\\SOFTWARE\\Microsoft\\Fusion EnableLog=1, ForceLog=1, LogPath=C:\\FusionLog\\), relaunch NW2025, check logs for exact bind failure, target missing dep or fix.",
+  "context_notes": "Plugin Manager confirms NW reads PackageContents.xml and registers CtrlWizNW. NW byte-array loads managed plugins — Process.Modules is NOT a valid load check for managed plugins. The Nw25 bundle is fully writable now (no MSI). PaddleSDK transitive deps deployed. XAML simplified. Still failing — Fusion logging is the next and likely final diagnostic step."
 }

@@ -5,11 +5,11 @@ OnlineDocumentation="https://help.buildfore.com/ctrlwiz/ctrlwiz-for-navisworks/h
 ProductCode="AE75327E-AB03-4C93-BE10-19DA596C6969" Icon="./Contents/Xbox.ico">
   <CompanyDetails Name="VIATechnik, LLC" Url="https://www.viatechnik.com/" Email="support@viatechnik.com" />
   <Components Description="Navisworks 2022">
-    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw22" SeriesMax="Nw22" />
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw19" SeriesMax="Nw19" />
     <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw22/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
   </Components>
   <Components Description="Navisworks 2025">
-    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw25" SeriesMax="Nw25" />
-    <ComponentEntry AppName="CtrlWizNW" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw25/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" SeriesMin="Nw22" SeriesMax="Nw22" />
+    <ComponentEntry AppName="CtrlWizNW25" AppType="ManagedPlugin" Version="2.0.1" ModuleName="./Contents/Nw25/CtrlWizNW.dll" AppDescription="CtrlWiz - Xbox Controller for Navis" />
   </Components>
 </ApplicationPackage>
