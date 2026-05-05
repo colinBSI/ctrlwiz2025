@@ -96,5 +96,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 Plans:
 - [x] 999.1-01-PLAN.md — Create StadiaDetector.cs, add Settings flag, add System.Management reference (completed 2026-05-05)
-- [ ] 999.1-02-PLAN.md — Wire StadiaDetector.CheckAndNotify() into CmdViewpoint.ExecuteCommand
+- [x] 999.1-02-PLAN.md — Wire StadiaDetector.CheckAndNotify() into CmdViewpoint.ExecuteCommand (completed 2026-05-05)
 - [ ] 999.1-03-PLAN.md — Build Debug NW25|x64, human-verify Stadia dialog behavior

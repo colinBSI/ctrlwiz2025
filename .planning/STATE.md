@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 999.1-01-PLAN.md (2026-05-05)
-last_updated: "2026-05-05T05:38:05Z"
-last_activity: "2026-05-05 — Phase 999.1 Plan 01 executed: StadiaDetector.cs created, Settings flag added, System.Management reference added"
+stopped_at: Completed 999.1-02-PLAN.md (2026-05-05)
+last_updated: "2026-05-05T05:40:57Z"
+last_activity: "2026-05-05 — Phase 999.1 Plan 02 executed: StadiaDetector.CheckAndNotify() wired into CmdViewpoint.ExecuteCommand()"
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 7
-  completed_plans: 6
-  percent: 86
+  completed_plans: 7
+  percent: 93
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-05-03)
 ## Current Position
 
 Phase: 999.1 (Stadia Controller Support — backlog)
-Plan: 1 of 3 complete in phase 999.1
-Status: Executing (999.1-02 next)
-Last activity: 2026-05-05 — Phase 999.1 Plan 01 executed: StadiaDetector.cs, StadiaViGEmDialogShown setting, System.Management csproj reference
+Plan: 2 of 3 complete in phase 999.1
+Status: Executing (999.1-03 next)
+Last activity: 2026-05-05 — Phase 999.1 Plan 02 executed: StadiaDetector.CheckAndNotify() call inserted into CmdViewpoint.ExecuteCommand() before Logger.SetUpLogger
 
 Progress: [████████░░] 86%
 
@@ -65,6 +65,9 @@ Recent decisions affecting current work:
 - 999.1-01: StadiaDetector uses fully-qualified Settings access (no using alias) — keeps class dependency-free
 - 999.1-01: catch {} (empty) on WMI + Process.Start — no logger dependency in StadiaDetector
 - 999.1-01: StadiaViGEmDialogShown set true regardless of Yes/No button click — dialog fires once ever
+- 999.1-02: No using directive needed — StadiaDetector in same CtrlWiz.NW namespace as CmdViewpoint
+- 999.1-02: Call placed before Logger.SetUpLogger — Stadia dialog fires regardless of license state
+- 999.1-02: Existing try/catch covers CheckAndNotify exceptions — no new error handling needed
 
 ### Pending Todos
 
@@ -85,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-05T05:38:05Z
-Stopped at: Completed 999.1-01-PLAN.md
+Last session: 2026-05-05T05:40:57Z
+Stopped at: Completed 999.1-02-PLAN.md
 Resume file: None
