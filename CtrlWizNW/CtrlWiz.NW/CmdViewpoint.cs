@@ -402,6 +402,8 @@ namespace CtrlWiz.NW
                 if (commandId == "default")
                     return 0;
 
+                StadiaDetector.CheckAndNotify();
+
                 Logger.SetUpLogger(LoggedApp.NW);
 
                 this.SetControllerButtonsLayout();
