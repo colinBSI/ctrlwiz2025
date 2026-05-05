@@ -92,7 +92,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 **Goal:** Add support for the Google Stadia controller as an input device alongside the existing Xbox controller
 **Requirements:** TBD
-**Plans:** 0 plans
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (promote with /gsd-review-backlog when ready)
+- [ ] 999.1-01-PLAN.md — Create StadiaDetector.cs, add Settings flag, add System.Management reference
+- [ ] 999.1-02-PLAN.md — Wire StadiaDetector.CheckAndNotify() into CmdViewpoint.ExecuteCommand
+- [ ] 999.1-03-PLAN.md — Build Debug NW25|x64, human-verify Stadia dialog behavior
