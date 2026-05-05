@@ -32,5 +32,8 @@
     <Setting Name="NV_StartButton" Type="CtrlWiz.NW.UI.Models.Function" Scope="User">
       <Value Profile="(Default)">NextViewpoint</Value>
     </Setting>
+    <Setting Name="StadiaViGEmDialogShown" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

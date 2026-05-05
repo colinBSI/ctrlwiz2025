@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CtrlWizNW.UI.Properties {
+namespace CtrlWiz.NW.UI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -140,6 +140,18 @@ namespace CtrlWizNW.UI.Properties {
             }
             set {
                 this["NV_StartButton"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StadiaViGEmDialogShown {
+            get {
+                return ((bool)(this["StadiaViGEmDialogShown"]));
+            }
+            set {
+                this["StadiaViGEmDialogShown"] = value;
             }
         }
     }
