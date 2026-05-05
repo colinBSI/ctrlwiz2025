@@ -85,3 +85,14 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 2. Ribbon Fix | 0/4 | In progress | - |
 | 3. Navigation Validation | 0/? | Not started | - |
 | 4. Build Hardening | 0/? | Not started | - |
+
+## Backlog
+
+### Phase 999.1: Google Stadia Controller Support (BACKLOG)
+
+**Goal:** Add support for the Google Stadia controller as an input device alongside the existing Xbox controller
+**Requirements:** TBD
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (promote with /gsd-review-backlog when ready)
