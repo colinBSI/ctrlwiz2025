@@ -32,8 +32,9 @@ Phase 1: Diagnose → Phase 2: Ribbon Fix → Phase 3: Navigation Validation →
 
 - **Bundle path:** `C:\ProgramData\Autodesk\ApplicationPlugins\CtrlWiz.NW.bundle\`
 - **NW25 DLLs:** `Contents/Nw25/` — deployed by `Debug NW25|x64` build config
-- **Root cause (HIGH confidence):** `CustomRibbon.xaml` and `CustomRibbon.name` are missing from `Contents/Nw25/` — the `[RibbonLayout]` attribute expects them as loose files alongside the DLL
-- **Secondary risk:** `CustomRibbon.xaml` uses `NWRibbonButton` from `navisworks.gui.roamer.dll` (Autodesk-internal) — verify type still exists in NW2025 before fixing
+- **Ribbon locale lookup (CONFIRMED):** NW2025 resolves `[Strings("CustomRibbon.name")]` and `[RibbonLayout("CustomRibbon.xaml")]` by looking for `en-US/CustomRibbon.name` and `en-US/CustomRibbon.xaml` in a locale subfolder relative to the DLL. Files placed in the DLL root are silently ignored and the plugin will not load. Both files must be in `Contents/Nw25/en-US/`. The csproj uses `<Link>en-US\CustomRibbon.name</Link>` / `<Link>en-US\CustomRibbon.xaml</Link>` to place them correctly on build.
+- **Series token:** NW2025 = `Nw22` in `PackageContents.xml` (API version 22.0.0.0; formula: year − 2003). Do not change to `Nw25`.
+- **Diagnostic:** `CmdViewpoint` static constructor writes `%TEMP%\CtrlWizNW_load.txt` on DLL load — absence of this file confirms the DLL was never loaded by NW.
 - **XInput:** P/Invoke targets `xinput1_4.dll` directly (Windows system DLL) — no external dependency needed
 
 ## Build Configs

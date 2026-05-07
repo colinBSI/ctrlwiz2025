@@ -4,3 +4,9 @@ C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-m
 C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
 C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
 C:\Users\HanshenSun\Downloads\ctrl-wiz-navis-revit-master\ctrl-wiz-navis-revit-master\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\bin\Debug\XInputDotNetPure.dll
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\bin\Debug\XInputDotNetPure.pdb
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.AssemblyReference.cache
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\obj\Debug\XInputDotNetPure.csproj.CoreCompileInputs.cache
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\obj\Debug\XInputDotNetPure.dll
+C:\Users\cemch-wei\Documents\GitHub\ctrlwiz2025\XInputDotNetPure\obj\Debug\XInputDotNetPure.pdb
