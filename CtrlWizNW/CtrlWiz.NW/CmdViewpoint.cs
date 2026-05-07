@@ -37,9 +37,7 @@ namespace CtrlWiz.NW
     [RibbonTab("ID_CustomTab_1", DisplayName = "CtrlWiz")]
     [Command("ID_Button_1", CanToggle = true, DisplayName = " Activate\n Controller ", ExtendedToolTip = "", Icon = "ActivateController.ico", LargeIcon = "ActivateController.ico", ToolTip = "")]
     [Command("ID_Button_2", DisplayName = " Controller\n Map ", ExtendedToolTip = "", Icon = "Help28.png", LargeIcon = "Help28.png", ToolTip = "")]
-    [Command("ID_Button_3", DisplayName = " Feature\n  Request  ", ExtendedToolTip = "", Icon = "Idea.png", LargeIcon = "Idea.png", ToolTip = "")]
-    [Command("ID_Button_4", DisplayName = " Speed\n  Setting  ", ExtendedToolTip = "", Icon = "Settings.ico", LargeIcon = "Settings.ico", ToolTip = "")]
-    [Command("ID_Button_5", DisplayName = " License ", ExtendedToolTip = "", Icon = "License.ico", LargeIcon = "License.ico", ToolTip = "", LoadForCanExecute = true)]
+[Command("ID_Button_4", DisplayName = " Speed\n  Setting  ", ExtendedToolTip = "", Icon = "Settings.ico", LargeIcon = "Settings.ico", ToolTip = "")]
 
     #endregion
 
@@ -411,10 +409,8 @@ namespace CtrlWiz.NW
                 this.SetControllerThumbSticksLayout();
 
                 UI.Properties.GetControllerElement.SettingsPropertyChanged += GetControllerElement_SettingsPropertyChanged;
-                //
-                InAppCheckout inAppCheckout = new InAppCheckout(ProductVersion.NW, commandId);
-                inAppCheckout.CheckoutCompleted += InAppCheckout_CheckoutCompleted;
-                inAppCheckout.Start();
+
+                InAppCheckout_CheckoutCompleted(this, new CheckoutCompletedArgs() { Allowed = true, CommandId = commandId });
             }
             catch (Exception ex)
             {
@@ -477,11 +473,7 @@ namespace CtrlWiz.NW
                             Button2();
                             break;
                         }
-                    case "ID_Button_3":
-                        {
-                            Button3();
-                            break;
-                        }
+
                     case "ID_Button_4":
                         {
                             try
@@ -510,19 +502,7 @@ namespace CtrlWiz.NW
                             }
                             break;
                         }
-                    case "ID_Button_5":
-                        {
-                            try
-                            {
-                                (sender as InAppCheckout).ShowLicenseDetailsWindow();
-                                // if (msg != null) MessageService.ShowError(msg);
-                            }
-                            catch (Exception ex)
-                            {
-                                ex.LogException();
-                            }
-                            break;
-                        }
+
                 }
             }
             catch (Exception ex)
@@ -601,7 +581,15 @@ namespace CtrlWiz.NW
                 TargetEnable();
                 //Target();
 
-                await Update();
+                timeBeginPeriod(1);
+                try
+                {
+                    await Update();
+                }
+                finally
+                {
+                    timeEndPeriod(1);
+                }
             }
             catch (Exception ex)
             {
@@ -1281,6 +1269,12 @@ namespace CtrlWiz.NW
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out IntPtr lpdwProcessId);
+
+        [DllImport("winmm.dll")]
+        private static extern int timeBeginPeriod(int uPeriod);
+
+        [DllImport("winmm.dll")]
+        private static extern int timeEndPeriod(int uPeriod);
 
         private IntPtr GetActiveAppProcessId()
         {
