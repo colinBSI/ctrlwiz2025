@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -211,19 +211,17 @@
     <None Include="VIATechnik_CS_cert.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
-    <!-- NW25 requires CustomRibbon.name as a loose file alongside the DLL.
-         The unconditional None item above is inert (no copy). This item
-         copies the file for the Debug NW25 build only.
-         Link flattens the path so the file lands at Nw25\CustomRibbon.name, not Nw25\CustomRibbon\CustomRibbon.name. -->
+    <!-- NW25 resolves .name files via locale subfolder lookup (en-US/CustomRibbon.name).
+         Link places the file at Nw25\en-US\CustomRibbon.name. -->
     <None Include="CustomRibbon\CustomRibbon.name">
-      <Link>CustomRibbon.name</Link>
+      <Link>en-US\CustomRibbon.name</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
     <!-- Same for release NW25 configuration. -->
     <None Include="CustomRibbon\CustomRibbon.name">
-      <Link>CustomRibbon.name</Link>
+      <Link>en-US\CustomRibbon.name</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -295,19 +293,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug NW25|x64'">
-    <!-- NW25 requires CustomRibbon.xaml as a loose file alongside the DLL.
-         The Page item above compiles XAML to BAML for NW22; this Content item
-         copies the raw .xaml file to output for NW25. Both items coexist.
-         Link flattens the path so the file lands at Nw25\CustomRibbon.xaml, not Nw25\CustomRibbon\CustomRibbon.xaml. -->
+    <!-- NW25 resolves .xaml files via locale subfolder lookup (en-US/CustomRibbon.xaml). Link places the file at Nw25\en-US\CustomRibbon.xaml. -->
     <Content Include="CustomRibbon\CustomRibbon.xaml">
-      <Link>CustomRibbon.xaml</Link>
+      <Link>en-US\CustomRibbon.xaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'NW25|x64'">
-    <!-- Same as above for the release NW25 configuration. -->
+    <!-- NW25 resolves .xaml files via locale subfolder lookup (en-US/CustomRibbon.xaml). Link places the file at Nw25\en-US\CustomRibbon.xaml. -->
     <Content Include="CustomRibbon\CustomRibbon.xaml">
-      <Link>CustomRibbon.xaml</Link>
+      <Link>en-US\CustomRibbon.xaml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -356,4 +351,17 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <Target Name="CopyNavisworksAssets" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug NW25' Or '$(Configuration)' == 'NW25'">
+    <ItemGroup>
+      <RibbonImages Include="..\CtrlWizImages\*.png;..\CtrlWizImages\*.ico" />
+    </ItemGroup>
+    <!-- Copy ribbon images to the Images subfolder -->
+    <Copy SourceFiles="@(RibbonImages)" DestinationFolder="$(OutDir)Images\" SkipUnchangedFiles="true" />
+    <!-- Copy PackageContents.xml to the .bundle root folder (2 levels up from Nw25) -->
+    <Copy SourceFiles="CustomRibbon\PackageContents.xml" DestinationFolder="$(OutDir)..\..\" SkipUnchangedFiles="true" />
+    <!-- Copy Xbox.ico to the Contents folder (1 level up from Nw25) -->
+    <Copy SourceFiles="..\CtrlWizImages\Xbox.ico" DestinationFolder="$(OutDir)..\" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>
